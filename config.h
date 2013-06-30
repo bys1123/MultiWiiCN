@@ -622,7 +622,7 @@
   //#define OSD_SWITCH
 
   /**************************************************************************************/
-  /***********************                  TX-related         **************************/
+  /***********************                  TX-相关            **************************/
   /**************************************************************************************/
 
     /* introduce a deadband around the stick center
@@ -710,13 +710,13 @@
 
 
   /**************************************************************************************/
-  /***********************        LCD/OLED - display settings       *********************/
+  /***********************        LCD/OLED - 显示设置       *********************/
   /**************************************************************************************/
 
     /* http://www.multiwii.com/wiki/index.php?title=Extra_features#LCD_.2F_OLED */
 
-    /*****************************   The type of LCD     **********************************/
-      /* choice of LCD attached for configuration and telemetry, see notes below */
+    /*****************************   LCD种类     **********************************/
+      /* 选择LCD attached for configuration and telemetry, see notes below */
       //#define LCD_DUMMY       // No Physical LCD attached.  With this & LCD_CONF defined, TX sticks still work to set gains, by watching LED blink.  
       //#define LCD_SERIAL3W    // Alex' initial variant with 3 wires, using rx-pin for transmission @9600 baud fixed
       //#define LCD_TEXTSTAR    // SERIAL LCD: Cat's Whisker LCD_TEXTSTAR Module CW-LCD-02 (Which has 4 input keys for selecting menus)
@@ -754,21 +754,21 @@
       #define LCD_MENU_ABORT 'x'
 
   /**************************************************************************************/
-  /***********************      LCD configuration menu         **************************/
+  /***********************             LCD配置菜单             **************************/
   /**************************************************************************************/
 
-    /* uncomment this line if you plan to use a LCD or OLED for tweaking parameters
+    /* 解除本行注释if you plan to use a LCD or OLED for tweaking parameters
      * http://www.multiwii.com/wiki/index.php?title=Extra_features#Configuration_Menu */
       //#define LCD_CONF
 
-    /* to include setting the aux switches for AUX1 -> AUX4 via LCD */
+    /* to include setting the aux switches for AUX1 -> AUX4 通过 LCD */
       //#define LCD_CONF_AUX
 
     /* optional exclude some functionality - uncomment to suppress some unwanted telemetry pages */
       //#define SUPPRESS_LCD_CONF_AUX34
 
   /**************************************************************************************/
-  /***********************      LCD       telemetry            **************************/
+  /***********************              LCD遥测                **************************/
   /**************************************************************************************/
 
     /* to monitor system values (battery level, loop time etc. with LCD 
@@ -796,13 +796,13 @@
     //#define SUPPRESS_TELEMETRY_PAGE_9
 
   /********************************************************************/
-  /****                             RSSI                           ****/
+  /****                      接收信号强度显示（RSSI）              ****/
   /********************************************************************/
     //#define RX_RSSI
     //#define RX_RSSI_PIN A3
 
   /********************************************************************/
-  /****                             Buzzer                         ****/
+  /****                      蜂鸣器（BUZZER）                      ****/
   /********************************************************************/
     //#define BUZZER
     //#define RCOPTIONSBEEP         // uncomment this if you want the buzzer to beep at any rcOptions change on channel Aux1 to Aux4
@@ -810,7 +810,7 @@
     //#define PILOTLAMP             //Uncomment if you are using a X-Arcraft Pilot Lamp
 
   /********************************************************************/
-  /****           battery voltage monitoring                       ****/
+  /****                      电池电压监控                          ****/
   /********************************************************************/
     /* for V BAT monitoring
        after the resistor divisor we should get [0V;5V]->[0;1023] on analog V_BATPIN
@@ -827,11 +827,11 @@
 
 
   /********************************************************************/
-  /****           powermeter (battery capacity monitoring)         ****/
+  /****                      功率计（电池容量监控）                ****/
   /********************************************************************/
 
     /* enable monitoring of the power consumption from battery (think of mAh)
-       allows to set alarm value in GUI or via LCD
+       allows to set alarm value 在GUI中或通过LCD
       Full description and howto here http://www.multiwii.com/wiki/index.php?title=Powermeter
        Two options:
        1 - hard: - (uses hardware sensor, after configuration gives very good results)
@@ -847,11 +847,11 @@
     #define PINT2mA 13 // (*) for telemtry display: one integer step on arduino analog translates to mA (example 4.9 / 37 * 100
 
   /********************************************************************/
-  /****           altitude hold                                    ****/
+  /****                      高度保持                              ****/
   /********************************************************************/
 
-    /* uncomment to disable the altitude hold feature.
-     * This is useful if all of the following apply
+    /* 解除注释来禁用高度保持特性。
+     * This is useful if all of the 下列应用
      * + you have a baro
      * + want altitude readout
      * + do not use altitude hold feature
@@ -866,10 +866,10 @@
   #define ALTHOLD_FAST_THROTTLE_CHANGE
 
   /********************************************************************/
-  /****           altitude variometer                              ****/
+  /****                     高度气压计                             ****/
   /********************************************************************/
 
-    /* enable to get audio feedback upon rising/falling copter/plane.
+    /* 启用 get audio feedback upon rising/falling copter/plane.
      * Requires a working baro.
      * For now, Output gets sent to an enabled vt100 terminal program over the serial line.
      * choice of two methods (enable either one or both)
@@ -882,14 +882,14 @@
     //#define VARIOMETER_SINGLE_TONE   // use only one tone (BEL); neccessary for non-patched vt100 terminals
 
   /********************************************************************/
-  /****           baord naming                                     ****/
+  /****                     飞控命名                              ****/
   /********************************************************************/
 
     /*
      * this name is displayed together with the MultiWii version number
      * upon powerup on the LCD.
-     * If you are without a DISPLAYD then You may enable LCD_TTY and
-     * use arduino IDE's serial monitor to view the info.
+     * If you are without a DISPLAYD then You may 开启LCD_TTY并
+     * 使用arduino IDE的串口监控器来查看信息。
      *
      * You must preserve the format of this string!
      * It must be 16 characters total,
@@ -898,16 +898,16 @@
     #define BOARD_NAME "MultiWii   V-.--"
     //                  123456789.123456
 
-  /*************      Support multiple configuration profiles in EEPROM     ************/
+  /*************      支持 multiple configuration profiles in EEPROM     ************/
     //#define MULTIPLE_CONFIGURATION_PROFILES
 
 /*************************************************************************************************/
 /*****************                                                                 ***************/
-/****************  SECTION  7 - TUNING & DEVELOPER                                  **************/
+/****************  SECTION  7 - 调试 & 开发者                                       **************/
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
-  /************ Experimental: force a stable, fixated (high) cycle time       **********/
+  /************ 实验性：force a stable，固定的（高）循环时间       **********/
     /* when activated, the displayed cycle time in GUI will not be correct.
      * Tunable via LCD config menu.
      * value of 0 turns the feature off.
@@ -972,7 +972,7 @@
     //#define SUPPRESS_OTHER_SERIAL_COMMANDS // saves  approx 0 to 100 bytes, depending on features enabled
 
   /********************************************************************/
-  /****           diagnostics                                      ****/
+  /****           诊断                                             ****/
   /********************************************************************/
 
     /* to log values like max loop time and others to come
@@ -996,60 +996,60 @@
     //#define LOG_PERMANENT_SHOW_AFTER_CONFIG // enable to display log after exiting LCD config menu
     //#define LOG_PERMANENT_SERVICE_LIFETIME 36000 // in seconds; service alert at startup after 10 hours of armed time
 
-    /* to add debugging code
-       not needed and not recommended for normal operation
-       will add extra code that may slow down the main loop or make copter non-flyable */
+    /* 添加调试代码
+       不需要并且也不推荐在平常运行时开启
+       将会额外添加代码，可能会使主循环变慢或者使飞行器不可飞行 */
     //#define DEBUG
 
-    /* Use this to trigger LCD configuration without a TX - only for debugging - do NOT fly with this activated */
+    /* 使用此项触发LCD configuration without a TX - 仅用于调试 - 不要在此项激活的情况下飞行 */
     //#define LCD_CONF_DEBUG
 
-    /* Use this to trigger telemetry without a TX - only for debugging - do NOT fly with this activated */
+    /* 使用此项触发遥测在没有TX - 仅用于调试 - 不要在此项激活的情况下飞行 */
     //#define LCD_TELEMETRY_DEBUG    //This form rolls between all screens, LCD_TELEMETRY_AUTO must also be defined.
     //#define LCD_TELEMETRY_DEBUG 6  //This form stays on the screen specified.
 
-    /* Enable string transmissions from copter to GUI */
+    /* 启用从飞行器到GUI的字符串传送 */
     //#define DEBUGMSG
 
 
   /********************************************************************/
-  /****           ESCs calibration                                 ****/
+  /****           电调（ESCs）校准                                 ****/
   /********************************************************************/
 
-    /* to calibrate all ESCs connected to MWii at the same time (useful to avoid unplugging/re-plugging each ESC)
-       Warning: this creates a special version of MultiWii Code
-       You cannot fly with this special version. It is only to be used for calibrating ESCs
-       Read How To at http://code.google.com/p/multiwii/wiki/ESCsCalibration */
+    /* 同时校准所有连接到MWii的电调（ESCs）（可以避免来回连接每一个电调（ESC））
+       警告：这将产生一个特别版本的MultiWii代码
+       这个特殊的版本是不可以用来飞行的。它只可以用来校准电调（ESCs）
+       使用方法详见 http://code.google.com/p/multiwii/wiki/ESCsCalibration */
     #define ESC_CALIB_LOW  MINCOMMAND
     #define ESC_CALIB_HIGH 2000
-    //#define ESC_CALIB_CANNOT_FLY  // uncomment to activate
+    //#define ESC_CALIB_CANNOT_FLY  // 解除注释激活此项
 
-  /****           internal frequencies                             ****/
-    /* frequenies for rare cyclic actions in the main loop, depend on cycle time
-       time base is main loop cycle time - a value of 6 means to trigger the action every 6th run through the main loop
-       example: with cycle time of approx 3ms, do action every 6*3ms=18ms
-       value must be [1; 65535] */
-    #define LCD_TELEMETRY_FREQ 23       // to send telemetry data over serial 23 <=> 60ms <=> 16Hz (only sending interlaced, so 8Hz update rate)
-    #define LCD_TELEMETRY_AUTO_FREQ 967 // to step to next telemetry page 967 <=> 3s
-    #define PSENSORFREQ 6               // to read hardware powermeter sensor 6 <=> 18ms
-    #define VBATFREQ PSENSORFREQ        // to read battery voltage - keep equal to PSENSORFREQ unless you know what you are doing
+  /****           内部频率                                         ****/
+    /* 在主循环中的稀有循环操作的频率，取决于周期时间
+       时间基数为主循环周期时间 - 值为6意味着每六个主循环触发一次操作
+       示例：周期时间大约在3ms，执行操作就在每 6*3ms=18ms
+       取值范围 [1; 65535] */
+    #define LCD_TELEMETRY_FREQ 23       // 通过串口发送遥测数据 23 <=> 60ms <=> 16Hz （只发送隔行数据，8Hz上传速率）
+    #define LCD_TELEMETRY_AUTO_FREQ 967 // 翻到下一个遥测页面 967 <=> 3s
+    #define PSENSORFREQ 6               // 读取硬件功率传感器 6 <=> 18ms
+    #define VBATFREQ PSENSORFREQ        // 读取电池电压 - 保持与 PSENSORFREQ 相等 除非你知道你自己在做什么
 
   /********************************************************************/
-  /****           Regression testing                               ****/
+  /****           回归测试                                         ****/
   /********************************************************************/
 
-    /* for development only:
-       to allow for easier and reproducable config sets for test compiling, different sets of config parameters are kept
-       together. This is meant to help detecting compile time errors for various features in a coordinated way.
-       It is not meant to produce your flying firmware
-       To use:
-       - do not set any options in config.h,
-       - enable with #define COPTERTEST 1, then compile
-       - if possible, check for the size
-       - repeat with other values of 2, 3, 4 etc.
+    /* 只用作开发用途:
+       考虑到测试编译时，不同的config参数是保持在一起的，所以可以更简单地重复测试config设置，
+       它的意义是可以帮助检测编译时的错误，让多种不同的特性以协调的方式运作。
+       这并不是用来制作你自己的飞行固件的。
+       使用方法：
+       - 不要在config.h中做任何设置，
+       - 启用#define COPTERTEST 1，然后编译
+       - 如果可能的话，检查程序大小
+       - 重复测试其他值2, 3, 4等。
         */
     //#define COPTERTEST 1
 
 /*************************************************************************************************/
-/****           END OF CONFIGURABLE PARAMETERS                                                ****/
+/****           可配置参数结束                                                                ****/
 /*************************************************************************************************/

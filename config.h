@@ -10,8 +10,8 @@
  * 3 - RC SYSTEM SETUP
  * 4 - ALTERNATE CPUs & BOARDS - if you have
  * 5 - ALTERNATE SETUP - select alternate RX (SBUS, PPM, etc.), alternate ESC-range, etc. here
- * 6 - OPTIONAL FEATURES - enable nice to have features here (FlightModes, LCD, telemetry, battery monitor etc.)
- * 7 - TUNING & DEVELOPER - if you know what you are doing; you have been warned
+ * 6 - 可选特性 - enable nice to have features here (FlightModes, LCD, telemetry, battery monitor etc.)
+ * 7 - 调试 & 开发者 - if you know what you are doing; you have been warned
  */
 
 /* Notes:
@@ -22,7 +22,7 @@
 
 /*************************************************************************************************/
 /*****************                                                                 ***************/
-/****************  SECTION  1 - BASIC SETUP                                                *******/
+/****************  第 1 部分 - BASIC SETUP                                                 *******/
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
@@ -198,7 +198,7 @@
 
 /*************************************************************************************************/
 /*****************                                                                 ***************/
-/****************  SECTION  2 - COPTER TYPE SPECIFIC OPTIONS                               *******/
+/****************  第 2 部分 - COPTER TYPE SPECIFIC OPTIONS                               *******/
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
@@ -336,7 +336,7 @@
 
 /*************************************************************************************************/
 /*****************                                                                 ***************/
-/****************  SECTION  3 - RC SYSTEM SETUP                                            *******/
+/****************  第 3 部分 - RC SYSTEM SETUP                                             *******/
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
@@ -391,7 +391,7 @@
 
 /*************************************************************************************************/
 /*****************                                                                 ***************/
-/****************  SECTION  4 - ALTERNATE CPUs & BOARDS                                    *******/
+/****************  第 4 部分 - ALTERNATE CPUs & BOARDS                                    *******/
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
@@ -476,7 +476,7 @@
 
 /*************************************************************************************************/
 /*****************                                                                 ***************/
-/****************  SECTION  5 - ALTERNATE SETUP                                            *******/
+/****************  第 5 部分 - ALTERNATE SETUP                                            *******/
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
@@ -498,34 +498,34 @@
 
 
   /**************************************************************************************/
-  /********                              Gyro filters                ********************/
+  /********                              陀螺仪滤波器                ********************/
   /**************************************************************************************/
 
-    /*********************    Lowpass filter for some gyros    ****************************/
-      /* ITG3200 & ITG3205 Low pass filter setting. In case you cannot eliminate all vibrations to the Gyro, you can try
-         to decrease the LPF frequency, only one step per try. As soon as twitching gone, stick with that setting.
-         It will not help on feedback wobbles, so change only when copter is randomly twiching and all dampening and
-         balancing options ran out. Uncomment only one option!
-         IMPORTANT! Change low pass filter setting changes PID behaviour, so retune your PID's after changing LPF.*/
-      //#define ITG3200_LPF_256HZ     // This is the default setting, no need to uncomment, just for reference
+    /*********************    一些陀螺仪的低通滤波器    ****************************/
+      /* ITG3200 & ITG3205 低通滤波器设置。假如你不能消除陀螺仪的所有震动，你可以尝试
+         减少低通滤波器（LPF）的频率，每次只要减少一档。一旦抽动消失，就保持这个设置。
+         它对回馈引起的摆动不起作用，所以只在飞行器随机抽动并且所有抑制和
+         平衡设置失效的时候才改变它。只取消注释其中一项！
+         重要！改变低通滤波器设置将会改变PID的行为，所以在改变LPF后重新调整你的PID。*/
+      //#define ITG3200_LPF_256HZ     // 此为默认设置，不需要取消注释，只作为参考
       //#define ITG3200_LPF_188HZ
       //#define ITG3200_LPF_98HZ
       //#define ITG3200_LPF_42HZ
       //#define ITG3200_LPF_20HZ
-      //#define ITG3200_LPF_10HZ      // Use this only in extreme cases, rather change motors and/or props
+      //#define ITG3200_LPF_10HZ      // 只在极端情况下使用此项，更应该换电机和/或螺旋桨
 
-      /* MPU6050 Low pass filter setting. In case you cannot eliminate all vibrations to the Gyro, you can try
-         to decrease the LPF frequency, only one step per try. As soon as twitching gone, stick with that setting.
-         It will not help on feedback wobbles, so change only when copter is randomly twiching and all dampening and
-         balancing options ran out. Uncomment only one option!
-         IMPORTANT! Change low pass filter setting changes PID behaviour, so retune your PID's after changing LPF.*/
-      //#define MPU6050_LPF_256HZ     // This is the default setting, no need to uncomment, just for reference
+      /* MPU6050 低通滤波器设置。假如你不能消除陀螺仪的所有震动，你可以尝试
+         减少低通滤波器（LPF）的频率，每次只要减少一档。一旦抽动消失，就保持这个设置。、
+         它对回馈引起的摆动不起作用，所以只在飞行器随机抽动并且所有抑制和
+         平衡设置失效的时候才改变它。只取消注释其中一项！
+         重要！改变低通滤波器设置将会改变PID的行为，所以在改变LPF后重新调整你的PID。*/
+      //#define MPU6050_LPF_256HZ     // 此为默认设置，不需要取消注释，只作为参考
       //#define MPU6050_LPF_188HZ
       //#define MPU6050_LPF_98HZ
       #define MPU6050_LPF_42HZ
       //#define MPU6050_LPF_20HZ
       //#define MPU6050_LPF_10HZ
-      //#define MPU6050_LPF_5HZ       // Use this only in extreme cases, rather change motors and/or props
+      //#define MPU6050_LPF_5HZ       // 只在极端情况下使用此项，更应该换电机和/或螺旋桨
 
     /******                Gyro smoothing    **********************************/
       /* GYRO_SMOOTHING. In case you cannot reduce vibrations _and_ _after_ you have tried the low pass filter options, you
@@ -545,7 +545,7 @@
 
 /*************************************************************************************************/
 /*****************                                                                 ***************/
-/****************  SECTION  6 - OPTIONAL FEATURES                                          *******/
+/****************  第 6 部分 - 可选特性                                                    *******/
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
@@ -570,7 +570,7 @@
        PITCH, ROLL and YAW is centered and THROTTLE is set to FAILSAFE_THR0TTLE value. You must set this value to descending about 1m/s or so 
        for best results. This value is depended from your configuration, AUW and some other params.  Next, afrer FAILSAFE_OFF_DELAY the copter is disarmed, 
        and motors is stopped. If RC pulse coming back before reached FAILSAFE_OFF_DELAY time, after the small quard time the RC control is returned to normal. */
-    //#define FAILSAFE                                // uncomment  to activate the failsafe function
+    //#define FAILSAFE                                // 接触注释来激活failsafe函数
     #define FAILSAFE_DELAY     10                     // Guard time for failsafe activation after signal lost. 1 step = 0.1sec - 1sec in example
     #define FAILSAFE_OFF_DELAY 200                    // Time for Landing before motors stop in 0.1sec. 1 step = 0.1sec - 20sec in example
     #define FAILSAFE_THROTTLE  (MINTHROTTLE + 200)    // (*) Throttle level used for landing - may be relative to MINTHROTTLE - as in this case
@@ -625,12 +625,12 @@
   /***********************                  TX-相关            **************************/
   /**************************************************************************************/
 
-    /* introduce a deadband around the stick center
-       Must be greater than zero, comment if you dont want a deadband on roll, pitch and yaw */
+    /* 引入一个死区（译者注：无作用控制区）在摇杆中点周围
+       必须大于零，如果你不需要在roll，pitch和yaw上的死区就注释掉它 */
     //#define DEADBAND 6
 
-    /* defines the neutral zone of throttle stick during altitude hold, default setting is
-       +/-40 uncommend and change the value below if you want to change it. */
+    /* 在定高时定义一个油门摇杆中立区域，默认设置为+/-40
+       如果你想改变它，解除注释并在下面更改值。 */
     //#define ALT_HOLD_THROTTLE_NEUTRAL_ZONE 40 
 
 
@@ -638,42 +638,42 @@
   /***********************                  GPS                **************************/
   /**************************************************************************************/
 
-    /* GPS using a SERIAL port
-       if enabled, define here the Arduino Serial port number and the UART speed
-       note: only the RX PIN is used in case of NMEA mode, the GPS is not configured by multiwii
-       in NMEA mode the GPS must be configured to output GGA and RMC NMEA sentences (which is generally the default conf for most GPS devices)
-       at least 5Hz update rate. uncomment the first line to select the GPS serial port of the arduino */
-    //#define GPS_SERIAL 2 // should be 2 for flyduino v2. It's the serial port number on arduino MEGA
+    /* GPS使用一个串口
+       如果启用， define here the Arduino串口号 and the UART speed
+       注： 只有the RX 针脚 is used in case of NMEA 模式， the GPS is not configured by multiwii
+       in NMEA 模式 the GPS must be configured to output GGA and RMC NMEA 语句 (which is generally the default conf for most GPS devices)
+       at 至少5Hz更新速率. 解除注释第一行来选择arduino的串口 */
+    //#define GPS_SERIAL 2 // flyduino v2应设为2。 此为arduino MEGA上的串口号
     //#define GPS_BAUD   57600
     #define GPS_BAUD   115200
 
 
-   /* GPS protocol 
-       NMEA  - Standard NMEA protocol GGA, GSA and RMC  sentences are needed
-       UBLOX - U-Blox binary protocol, use the ublox config file (u-blox-config.ublox.txt) from the source tree 
-       MTK_BINARY16 and MTK_BINARY19 - MTK3329 chipset based GPS with DIYDrones binary firmware (v1.6 or v1.9)
-       With UBLOX and MTK_BINARY you don't have to use GPS_FILTERING in multiwii code !!! */
+   /* GPS协议 
+       NMEA  - 标准NMEA协议。GGA，GSA与RMC语句是需要使用的
+       UBLOX - U-Blox二进制协议，使用ublox配置文件 (u-blox-config.ublox.txt) from the source tree 
+       MTK_BINARY16 与 MTK_BINARY19 - 基于MTK3329芯片的GPS，使用DIYDrones二进制固件（v1.6 或 v1.9）
+       如启用 UBLOX 与 MTK_BINARY 你不需要在multiwii代码中使用 GPS_FILTERING  !!! */
 
     
     //#define NMEA
     //#define UBLOX
     //#define MTK_BINARY16
     //#define MTK_BINARY19
-    //#define INIT_MTK_GPS        // initialize MTK GPS for using selected speed, 5Hz update rate and GGA & RMC sentence or binary settings
+    //#define INIT_MTK_GPS        // 初始化MTK GPS。应用指定的速度，5Hz更新速率与 GGA & RMC sentence or binary 设置
 
-    //#define GPS_PROMINI_SERIAL    57600 // Will Autosense if GPS is connected when ardu boots
+    //#define GPS_PROMINI_SERIAL    57600 //  当ardu（ino）启动时如果连接了GPS，将会自适应
    
-    /* I2C GPS device made with an independant arduino + GPS device
-       including some navigation functions
+    /* I2C GPS 设备，使用一个独立的arduino + GPS设备制作
+       包含一些导航函数
        contribution from EOSBandi   http://code.google.com/p/i2c-gps-nav/ 
-       You have to use at least I2CGpsNav code r33 */
+       你必须使用I2CGpsNav r33以上版本 */
     //#define I2C_GPS
 
-    /* I2C GPS device made with an indeedent ATTiny[24]313 + GPS device and
-       optional sonar device.    https://github.com/wertarbyte/tiny-gps/ */
-    /* get GPS data from Tiny-GPS */
+    /* I2C GPS 设备，使用独立的ATTiny[24]313 + GPS设备与
+       可选的声呐设备制作。    https://github.com/wertarbyte/tiny-gps/ */
+    /* 从Tiny-GPS获取GPS数据 */
     //#define TINY_GPS
-    /* get sonar data from Tiny-GPS */
+    /* 从Tiny-GPS获取声呐数据 */
     //#define TINY_GPS_SONAR
 
     /* GPS data readed from Misio-OSD - GPS module connected to OSD, and MultiWii read GPS data from OSD - tested and working OK ! */
@@ -685,9 +685,9 @@
       - Fix and sat no. >= 5 -> LED blinks, one blink for 5 sat, two blinks for 6 sat, three for 7 ... */
     #define GPS_LED_INDICATOR
 
-    //#define USE_MSP_WP                        //Enables the MSP_WP command, which is used by WinGUI to display and log Home and Poshold positions
+    //#define USE_MSP_WP                        // 启用MSP_WP命令， which is used by WinGUI to display and log Home and Poshold positions
 
-    //#define DONT_RESET_HOME_AT_ARM             // HOME position is reset at every arm, uncomment it to prohibit it (you can set home position with GyroCalibration)
+    //#define DONT_RESET_HOME_AT_ARM             // 家（HOME）的地点会在每次解锁时重置，解除注释此项来禁用它（你可以通过校准陀螺仪来设置家的地点）
 
     /* GPS navigation can control the heading */
     
@@ -696,13 +696,13 @@
     #define NAV_SET_TAKEOFF_HEADING    true      // true - when copter arrives to home position it rotates it's head to takeoff direction
     
     
-    /* Get your magnetic decliniation from here : http://magnetic-declination.com/
-       Convert the degree+minutes into decimal degree by ==> degree+minutes*(1/60)
+    /* 从这里获取你的磁偏角：http://magnetic-declination.com/
+       转换度+分为十进制的度 ==> 度+分*(1/60)
        Note the sign on declination it could be negative or positive (WEST or EAST) */
-    //#define MAG_DECLINIATION  3.96f              //For Budapest Hungary.
+    //#define MAG_DECLINIATION  3.96f              // 匈牙利布达佩斯。
     #define MAG_DECLINIATION  0.0f
 
-    #define GPS_LEAD_FILTER                      // Adds a forward predictive filterig to compensate gps lag. Code based on Jason Short's lead filter implementation
+    #define GPS_LEAD_FILTER                      // Adds a forward predictive filterig to compensate gps lag。 Code based on Jason Short's lead filter implementation
     
     //#define GPS_FILTERING                        // add a 5 element moving average filter to GPS coordinates, helps eliminate gps noise but adds latency comment out to disable
     #define GPS_WP_RADIUS              200       // if we are within this distance to a waypoint then we consider it reached (distance is in cm)
@@ -715,7 +715,7 @@
 
     /* http://www.multiwii.com/wiki/index.php?title=Extra_features#LCD_.2F_OLED */
 
-    /*****************************   LCD种类     **********************************/
+    /*****************************    LCD种类            **********************************/
       /* 选择LCD attached for configuration and telemetry, see notes below */
       //#define LCD_DUMMY       // No Physical LCD attached.  With this & LCD_CONF defined, TX sticks still work to set gains, by watching LED blink.  
       //#define LCD_SERIAL3W    // Alex' initial variant with 3 wires, using rx-pin for transmission @9600 baud fixed
@@ -738,12 +738,12 @@
      */
       //#define DISPLAY_FONT_DSIZE //currently only aplicable for OLED_I2C_128x64
 
-    /* style of display - AUTODETECTED via LCD_ setting - only activate to override defaults */
+    /* 显示风格 - AUTODETECTED via LCD_ setting - only activate to override defaults */
       //#define DISPLAY_2LINES
       //#define DISPLAY_MULTILINE
       //#define MULTILINE_PRE 2  // multiline configMenu # pref lines
       //#define MULTILINE_POST 6 // multiline configMenu # post lines
-    /********************************    Navigation     ***********************************/
+    /********************************    导航             ***********************************/
     /* keys to navigate the LCD menu */
       #define LCD_MENU_PREV 'p'
       #define LCD_MENU_NEXT 'n'
@@ -805,14 +805,14 @@
   /****                      蜂鸣器（BUZZER）                      ****/
   /********************************************************************/
     //#define BUZZER
-    //#define RCOPTIONSBEEP         // uncomment this if you want the buzzer to beep at any rcOptions change on channel Aux1 to Aux4
+    //#define RCOPTIONSBEEP         // 解除注释 this if you want the buzzer to beep at any rcOptions change on channel Aux1 to Aux4
     //#define ARMEDTIMEWARNING 330  // (*) Trigger an alarm after a certain time of being armed [s] to save you lipo (if your TX does not have a countdown)
     //#define PILOTLAMP             //Uncomment if you are using a X-Arcraft Pilot Lamp
 
   /********************************************************************/
   /****                      电池电压监控                          ****/
   /********************************************************************/
-    /* for V BAT monitoring
+    /* for V BAT 监控
        after the resistor divisor we should get [0V;5V]->[0;1023] on analog V_BATPIN
        with R1=33k and R2=51k
        vbat = [0;1023]*16/VBATSCALE
@@ -830,16 +830,16 @@
   /****                      功率计（电池容量监控）                ****/
   /********************************************************************/
 
-    /* enable monitoring of the power consumption from battery (think of mAh)
+    /* 启用电池能量消耗监控（think of mAh)
        allows to set alarm value 在GUI中或通过LCD
-      Full description and howto here http://www.multiwii.com/wiki/index.php?title=Powermeter
-       Two options:
-       1 - hard: - (uses hardware sensor, after configuration gives very good results)
-       2 - soft: - (good results +-5% for plush and mystery ESCs @ 2S and 3S, not good with SuperSimple ESC)    */
+       Full description and howto here http://www.multiwii.com/wiki/index.php?title=Powermeter
+       有两个选项：
+       1 - 硬件: - （使用硬件传感器，配置后将获得相当不错的结果）
+       2 - 软件: - （good results +-5% for plush and mystery ESCs @ 2S and 3S, not good with SuperSimple ESC)    */
     //#define POWERMETER_SOFT
     //#define POWERMETER_HARD
     /* PLEVELSCALE is the step size you can use to set alarm */
-    #define PLEVELSCALE 50 // if you change this value for other granularity, you must search for comments in code to change accordingly
+    #define PLEVELSCALE 50 // 如果你改变了这个值 for other granularity, you must search for comments in code to change accordingly
     /* larger PLEVELDIV will get you smaller value for power (mAh equivalent) */
     #define PLEVELDIV 5000 // (*) default for soft - if you lower PLEVELDIV, beware of overrun in uint32 pMeter
     #define PLEVELDIVSOFT PLEVELDIV // for soft always equal to PLEVELDIV; for hard set to 5000
@@ -851,11 +851,11 @@
   /********************************************************************/
 
     /* 解除注释来禁用高度保持特性。
-     * This is useful if all of the 下列应用
-     * + you have a baro
-     * + want altitude readout
-     * + do not use altitude hold feature
-     * + want to save memory space
+     * This is useful if 所有下列应用
+     * + 你有一个气压传感器
+     * + 想要高度值输出
+     * + 不需要使用高度保持特性
+     * + 想要节省储存空间
      */
     //#define SUPPRESS_BARO_ALTHOLD
 
@@ -873,10 +873,10 @@
      * Requires a working baro.
      * For now, Output gets sent to an enabled vt100 terminal program over the serial line.
      * choice of two methods (enable either one or both)
-     * method 1 : use short term movement from baro ( bigger code size)
-     * method 2 : use long term observation of altitude from baro (smaller code size)
+     * 方式 1 : use short term movement from baro ( bigger code size)
+     * 方式 2 : use long term observation of altitude from baro (smaller code size)
      */
-    //#define VARIOMETER 12            // possible values: 12 = methods 1 & 2 ; 1 = method 1 ; 2 = method 2
+    //#define VARIOMETER 12            // 可用值：12 = 方式 1 & 2 ；1 = 方式 1；2 = 方式 2
     //#define SUPPRESS_VARIOMETER_UP   // if no signaling for up movement is desired
     //#define SUPPRESS_VARIOMETER_DOWN // if no signaling for down movement is desired
     //#define VARIOMETER_SINGLE_TONE   // use only one tone (BEL); neccessary for non-patched vt100 terminals
@@ -886,63 +886,63 @@
   /********************************************************************/
 
     /*
-     * this name is displayed together with the MultiWii version number
+     * this name is displayed together with the MultiWii 版本号
      * upon powerup on the LCD.
-     * If you are without a DISPLAYD then You may 开启LCD_TTY并
-     * 使用arduino IDE的串口监控器来查看信息。
+     * If you are without a DISPLAYD 那么你可以开启LCD_TTY
+     * 并使用arduino IDE的串口监控器来查看信息。
      *
-     * You must preserve the format of this string!
-     * It must be 16 characters total,
-     * The last 4 characters will be overwritten with the version number.
+     * 你必须保持此处文本的格式！
+     * 它必须总共有16个字母，
+     * 最后4个字母将会被版本号覆盖。
      */
     #define BOARD_NAME "MultiWii   V-.--"
     //                  123456789.123456
 
-  /*************      支持 multiple configuration profiles in EEPROM     ************/
+  /*************      支持 多个 配置 profiles in EEPROM     ************/
     //#define MULTIPLE_CONFIGURATION_PROFILES
 
 /*************************************************************************************************/
 /*****************                                                                 ***************/
-/****************  SECTION  7 - 调试 & 开发者                                       **************/
+/****************  第 7 部分 - 调试 & 开发者                                       **************/
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
-  /************ 实验性：force a stable，固定的（高）循环时间       **********/
-    /* when activated, the displayed cycle time in GUI will not be correct.
-     * Tunable via LCD config menu.
-     * value of 0 turns the feature off.
+  /************ 实验性：强制一个稳固的（高）周期时间       **********/
+    /* 当此项激活，在GUI中显示的周期时间将会不正确。
+     * 可通过LCD配置菜单调整。
+     * 值为0关闭此项特性。
      */
     //#define CYCLETIME_FIXATED 9000 // (*)
 
   /**************************************************************************************/
-  /********   special ESC with extended range [0-2000] microseconds  ********************/
+  /********   特殊的电调（ESC）使用扩展范围 [0-2000] 微秒  ********************/
   /**************************************************************************************/
     //#define EXT_MOTOR_RANGE
 
   /**************************************************************************************/
-  /***********************     motor, servo and other presets     ***********************/
+  /***********************     电机，舵机和其他的预置             ***********************/
   /**************************************************************************************/
-    /* motors will not spin when the throttle command is in low position
-       this is an alternative method to stop immediately the motors */
+    /* 当油门命令在低位时电机将不会spin
+       这是立即停止电机的替代方案 */
     #define MOTOR_STOP
 
-    /* some radios have not a neutral point centered on 1500. can be changed here */
+    /* 一些遥控器的中立点不是1500。可以在此修改 */
     #define MIDRC 1500
 
-  /***********************         Servo Refreshrates            ***********************/
-    /* Default 50Hz Servo refresh rate*/
+  /***********************         舵机刷新率                   ***********************/
+    /* 默认50Hz舵机刷新率 */
     #define SERVO_RFR_50HZ
 
-    /* up to 160Hz servo refreshrate .. works with the most analog servos*/
+    /* up to 160Hz 舵机刷新率 .. 用于多数模拟舵机 */
     //#define SERVO_RFR_160HZ
 
-    /* up to 300Hz refreshrate it is as fast as possible (100-300Hz depending on the cound of used servos and the servos state).
-       for use with digital servos
-       dont use it with analog servos! thay may get damage. (some will work but be careful) */
+    /* up to 300Hz 刷新率 it is as fast as possible （100-300Hz 取决于使用的舵机和舵机状态）。
+       用于数字舵机
+       不要用于模拟舵机！它们可能遭到破坏。（一些可以使用，但请非常小心） */
     //#define SERVO_RFR_300HZ
     
-  /***********************             HW PWM Servos             ***********************/ 
-    /* HW PWM Servo outputs for Arduino Mega.. moves:
+  /***********************             HW PWM 舵机             ***********************/ 
+    /* HW PWM 舵机输出 for Arduino Mega.. moves:
       Pitch   = pin 44
       Roll    = pin 45
       CamTrig = pin 46
@@ -1001,7 +1001,7 @@
        将会额外添加代码，可能会使主循环变慢或者使飞行器不可飞行 */
     //#define DEBUG
 
-    /* 使用此项触发LCD configuration without a TX - 仅用于调试 - 不要在此项激活的情况下飞行 */
+    /* 使用此项触发LCD配置 without a TX - 仅用于调试 - 不要在此项激活的情况下飞行 */
     //#define LCD_CONF_DEBUG
 
     /* 使用此项触发遥测在没有TX - 仅用于调试 - 不要在此项激活的情况下飞行 */

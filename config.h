@@ -1,37 +1,37 @@
 /*************************************************************************************************/
-/****           CONFIGURABLE PARAMETERS                                                       ****/
+/****           可配置参数                                                                    ****/
 /*************************************************************************************************/
 
-/* this file consists of several sections
- * to create a working combination you must at least make your choices in section 1.
- * 1 - BASIC SETUP - you must select an option in every block.
- *      this assumes you have 4 channels connected to your board with standard ESCs and servos.
- * 2 - COPTER TYPE SPECIFIC OPTIONS - you likely want to check for options for your copter type
- * 3 - RC SYSTEM SETUP
- * 4 - ALTERNATE CPUs & BOARDS - if you have
- * 5 - ALTERNATE SETUP - select alternate RX (SBUS, PPM, etc.), alternate ESC-range, etc. here
- * 6 - 可选特性 - enable nice to have features here (FlightModes, LCD, telemetry, battery monitor etc.)
- * 7 - 调试 & 开发者 - if you know what you are doing; you have been warned
+/* 本文件由几部分组成
+ * 用于创建一个可用的组合，你必须至少在第1部分做出你的选择。
+ * 1 - 基本设置 - 你必须在每个块中选择一个选项。
+ *      这里假定你的板子连接了4个通道还有标准电调和舵机。
+ * 2 - 飞行器分类详细选项 - 你可能需要为你的飞行器分类检查选项
+ * 3 - 遥控系统设置
+ * 4 - 替代CPU和板子 - 如果你有
+ * 5 - 替代设置 - 在此选择替代发射机（SBUS，PPM等），替代电调范围等
+ * 6 - 可选特性 - 在此启用锦上添花的特性（飞行模式，LCD，遥测，电池监控等）
+ * 7 - 调试 & 开发者 - 如果你知道你在做什么；已经警告过你了
  */
 
-/* Notes:
- * 1. parameters marked with (*) in the comment are stored in eeprom and can be tweaked via serial monitor or LCD.
- *    Changing those values in config.h and upload will require a 'Reset' from the GUI to take effect
+/* 提示：
+ * 1. 在注释中用(*)标记的参数被储存在eeprom中，并且可以通过串口监控器或LCD调节。
+ *    在config.h中修改这些值并上传需要在GUI中“重置”才会生效
  */
 
 
 /*************************************************************************************************/
 /*****************                                                                 ***************/
-/****************  第 1 部分 - BASIC SETUP                                                 *******/
+/****************  第 1 部分 - 基本设置                                                    *******/
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
-  /**************************    The type of multicopter    ****************************/
+  /**************************    多旋翼飞行器种类    ****************************/
     //#define GIMBAL
     //#define BI
     //#define TRI
     //#define QUADP
-    #define QUADX
+    //#define QUADX
     //#define Y4
     //#define Y6
     //#define HEX6
@@ -48,70 +48,70 @@
     //#define HELI_120_CCPM
     //#define HELI_90_DEG
 
-  /****************************    Motor minthrottle    *******************************/
-    /* Set the minimum throttle command sent to the ESC (Electronic Speed Controller)
-       This is the minimum value that allow motors to run at a idle speed  */
-    //#define MINTHROTTLE 1300 // for Turnigy Plush ESCs 10A
-    //#define MINTHROTTLE 1120 // for Super Simple ESCs 10A
-    //#define MINTHROTTLE 1064 // special ESC (simonk)
-    //#define MINTHROTTLE 1050 // for brushed ESCs like ladybird
+  /****************************       电机最小油门      *******************************/
+    /* 设定发送至电调（ESC，Electronic Speed Controller）的最小油门命令
+       该最小值允许电机运行在怠速上  */
+    //#define MINTHROTTLE 1300 // 用于Turnigy Plush ESCs 10A
+    //#define MINTHROTTLE 1120 // 用于Super Simple ESCs 10A
+    //#define MINTHROTTLE 1064 // 特殊的ESC (simonk)
+    //#define MINTHROTTLE 1050 // 用于brushed ESC比如ladybird
     #define MINTHROTTLE 1150 // (*)
 
-  /****************************    Motor maxthrottle    *******************************/
-    /* this is the maximum value for the ESCs at full power, this value can be increased up to 2000 */
+  /****************************        电机最大油门     *******************************/
+    /* ESC在全功率是的最大值，该值最大可增至2000 */
     #define MAXTHROTTLE 1850
 
-  /****************************    Mincommand          *******************************/
-    /* this is the value for the ESCs when they are not armed
-       in some cases, this value must be lowered down to 900 for some specific ESCs, otherwise they failed to initiate */
+  /****************************       最小命令          *******************************/
+    /* 该值用于未解锁时的ESC
+       在某些情况下，用于一些特殊的电调该值必须降至900，否则电调会初始化失败 */
     #define MINCOMMAND  1000
 
-  /**********************************    I2C speed   ************************************/
-    //#define I2C_SPEED 100000L     //100kHz normal mode, this value must be used for a genuine WMP
-    #define I2C_SPEED 400000L   //400kHz fast mode, it works only with some WMP clones
+  /**********************************    I2C速度   ************************************/
+    //#define I2C_SPEED 100000L     //100kHz普通模式，正品WPM必须使用该值
+    #define I2C_SPEED 400000L   //400kHz快速模式，仅用于一些山寨WPM
 
-  /***************************    Internal i2c Pullups   ********************************/
-    /* enable internal I2C pull ups (in most cases it is better to use external pullups) */
+  /***************************      内部i2c上拉        ********************************/
+    /* 启用内部I2C上拉（在多数情况下，使用外部上拉更佳） */
     #define INTERNAL_I2C_PULLUPS
 
   /**************************************************************************************/
-  /*****************          boards and sensor definitions            ******************/
+  /*****************          板子与传感器定义                         ******************/
   /**************************************************************************************/
 
     /***************************    Combined IMU Boards    ********************************/
-      /* if you use a specific sensor board:
-         please submit any correction to this list.
-           Note from Alex: I only own some boards, for other boards, I'm not sure, the info was gathered via rc forums, be cautious */
-      //#define FFIMUv1         // first 9DOF+baro board from Jussi, with HMC5843                   <- confirmed by Alex
-      //#define FFIMUv2         // second version of 9DOF+baro board from Jussi, with HMC5883       <- confirmed by Alex
-      //#define FREEIMUv1       // v0.1 & v0.2 & v0.3 version of 9DOF board from Fabio
-      //#define FREEIMUv03      // FreeIMU v0.3 and v0.3.1
-      //#define FREEIMUv035     // FreeIMU v0.3.5 no baro
-      //#define FREEIMUv035_MS  // FreeIMU v0.3.5_MS                                                <- confirmed by Alex
+      /* 如果你在使用特定的传感器板：
+         请提交改动到这个列表。
+           来自Alex的提示：我只有其中一些板子，对于其他板子，我不能确保好用，信息由遥控论坛生成，请小心使用 */
+      //#define FFIMUv1         // 来自Jussi的第一块9DOF+气压计板，使用HMC5843                   <- 由Alex确认
+      //#define FFIMUv2         // 来自Jussi的第二版9DOF+气压计板，使用HMC5883                   <- 由Alex确认
+      //#define FREEIMUv1       // 来自Fabio的v0.1 & v0.2 & v0.3版本的9DOF版
+      //#define FREEIMUv03      // FreeIMU v0.3与v0.3.1
+      //#define FREEIMUv035     // FreeIMU v0.3.5无气压计
+      //#define FREEIMUv035_MS  // FreeIMU v0.3.5_MS                                                <- 由Alex确认
       //#define FREEIMUv035_BMP // FreeIMU v0.3.5_BMP
-      //#define FREEIMUv04      // FreeIMU v0.4 with MPU6050, HMC5883L, MS561101BA                  <- confirmed by Alex
-      //#define FREEIMUv043     // same as FREEIMUv04 with final MPU6050 (with the right ACC scale)
-      //#define NANOWII         // the smallest multiwii FC based on MPU6050 + pro micro based proc <- confirmed by Alex
-      //#define PIPO            // 9DOF board from erazz
-      //#define QUADRINO        // full FC board 9DOF+baro board from witespy  with BMP085 baro     <- confirmed by Alex
+      //#define FREEIMUv04      // FreeIMU v0.4使用MPU6050，HMC5883L，MS561101BA                    <- 由Alex确认
+      //#define FREEIMUv043     // same as FREEIMUv04 with final MPU6050（with the right ACC scale）
+      //#define NANOWII         // 最小的multiwii飞控基于MPU6050 + pro micro based proc             <- 由Alex确认
+      //#define PIPO            // 来自erazz的9DOF板
+      //#define QUADRINO        // full FC board 9DOF+baro board from witespy  with BMP085 baro     <- 由Alex确认
       //#define QUADRINO_ZOOM   // full FC board 9DOF+baro board from witespy  second edition
-      //#define QUADRINO_ZOOM_MS// full FC board 9DOF+baro board from witespy  second edition       <- confirmed by Alex
+      //#define QUADRINO_ZOOM_MS// full FC board 9DOF+baro board from witespy  second edition       <- 由Alex确认
       //#define ALLINONE        // full FC board or standalone 9DOF+baro board from CSG_EU
       //#define AEROQUADSHIELDv2
       //#define ATAVRSBIN1      // Atmel 9DOF (Contribution by EOSBandi). requires 3.3V power.
-      //#define SIRIUS          // Sirius Navigator IMU                                             <- confirmed by Alex
-      //#define SIRIUSGPS       // Sirius Navigator IMU  using external MAG on GPS board            <- confirmed by Alex
+      //#define SIRIUS          // Sirius Navigator IMU                                             <- 由Alex确认
+      //#define SIRIUSGPS       // Sirius Navigator IMU  using external MAG on GPS board            <- 由Alex确认
       //#define SIRIUS600       // Sirius Navigator IMU  using the WMP for the gyro
       //#define SIRIUS_AIR      // Sirius Navigator IMU 6050 32U4 from MultiWiiCopter.com
       //#define SIRIUS_AIR_GPS  // Sirius Navigator IMU 6050 32U4 from MultiWiiCopter.com with GPS/MAG remote located
-      //#define MINIWII         // Jussi's MiniWii Flight Controller                                <- confirmed by Alex
-      //#define MICROWII        // MicroWii 10DOF with ATmega32u4, MPU6050, HMC5883L, MS561101BA from http://flyduino.net/
-      //#define CITRUSv2_1      // CITRUS from qcrc.ca
+      //#define MINIWII         // Jussi的MiniWii飞行控制器                                <- 由Alex确认
+      //#define MICROWII        // MicroWii 10DOF使用ATmega32u4, MPU6050, HMC5883L, MS561101BA，来自http://flyduino.net/
+      //#define CITRUSv2_1      // CITRUS，来自qcrc.ca
       //#define CHERRY6DOFv1_0
-      //#define DROTEK_10DOF    // Drotek 10DOF with ITG3200, BMA180, HMC5883, BMP085, w or w/o LLC
-      //#define DROTEK_10DOF_MS // Drotek 10DOF with ITG3200, BMA180, HMC5883, MS5611, LLC
+      //#define DROTEK_10DOF    // Drotek 10DOF使用ITG3200, BMA180, HMC5883, BMP085, w or w/o LLC
+      //#define DROTEK_10DOF_MS // Drotek 10DOF使用ITG3200, BMA180, HMC5883, MS5611, LLC
       //#define DROTEK_6DOFv2   // Drotek 6DOF v2
-      //#define DROTEK_6DOF_MPU // Drotek 6DOF with MPU6050
+      //#define DROTEK_6DOF_MPU // Drotek 6DOF使用MPU6050
       //#define DROTEK_10DOF_MPU//
       //#define MONGOOSE1_0     // mongoose 1.0    http://store.ckdevices.com/
       //#define CRIUS_LITE      // Crius MultiWii Lite
@@ -119,10 +119,10 @@
       //#define OPENLRSv2MULTI  // OpenLRS v2 Multi Rc Receiver board including ITG3205 and ADXL345
       //#define BOARD_PROTO_1   // with MPU6050 + HMC5883L + MS baro
       //#define BOARD_PROTO_2   // with MPU6050 + slave  MAG3110 + MS baro
-      //#define GY_80           // Chinese 10 DOF with  L3G4200D ADXL345 HMC5883L BMP085, LLC
-      //#define GY_85           // Chinese 9 DOF with  ITG3205 ADXL345 HMC5883L LLC
-      #define GY_86           // Chinese 10 DOF with  MPU6050 HMC5883L MS5611, LLC
-      //#define GY_521          // Chinese 6  DOF with  MPU6050, LLC
+      //#define GY_80           // 中国的10 DOF with  L3G4200D ADXL345 HMC5883L BMP085, LLC
+      //#define GY_85           // 中国的9 DOF with  ITG3205 ADXL345 HMC5883L LLC
+      //#define GY_86           // 中国的10 DOF with  MPU6050 HMC5883L MS5611, LLC
+      //#define GY_521          // 中国的6  DOF with  MPU6050, LLC
       //#define INNOVWORKS_10DOF // with ITG3200, BMA180, HMC5883, BMP085 available here http://www.diymulticopter.com
       //#define INNOVWORKS_6DOF // with ITG3200, BMA180 available here http://www.diymulticopter.com
       //#define MultiWiiMega    // MEGA + MPU6050+HMC5883L+MS5611 available here http://www.diymulticopter.com
@@ -136,7 +136,7 @@
       //#define DESQUARED6DOFV2GO  // DEsquared V2 with ITG3200 only
       //#define DESQUARED6DOFV4    // DEsquared V4 with MPU6050
       //#define LADYBIRD
-      //#define MEGAWAP_V2_STD     // available here: http://www.multircshop.com                    <- confirmed by Alex
+      //#define MEGAWAP_V2_STD     // 可在这里买到： http://www.multircshop.com                    <- 由Alex确认
       //#define MEGAWAP_V2_ADV
       //#define HK_MultiWii_SE_V2  // Hobbyking board with MPU6050 + HMC5883L + BMP085
       //#define HK_MultiWii_328P   // Also labeled "Hobbybro" on the back.  ITG3205 + BMA180 + BMP085 + NMC5583L + DSM2 Connector (Spektrum Satellite)  
@@ -145,245 +145,245 @@
       //#define FLYDU_ULTRA        // MEGA+10DOF+MT3339 FC
 
       
-    /***************************    independent sensors    ********************************/
-      /* leave it commented if you already checked a specific board above */
-      /* I2C gyroscope */
+    /***************************    独立的传感器    ********************************/
+      /* 如果你已在上方选择了相应的板子，保持注释状态即可 */
+      /* I2C陀螺仪 */
       //#define WMP
       //#define ITG3200
       //#define L3G4200D
       //#define MPU6050       //combo + ACC
 
-      /* I2C accelerometer */
-      //#define NUNCHUCK  // if you want to use the nunckuk connected to a WMP
+      /* I2C加速度计 */
+      //#define NUNCHUCK  // 如果你要将nunckuk连接到WMP使用
       //#define MMA7455
       //#define ADXL345
       //#define BMA020
       //#define BMA180
-      //#define NUNCHACK  // if you want to use the nunckuk as a standalone I2C ACC without WMP
+      //#define NUNCHACK  // 如果你要将nunckuk作为单独的I2C加速度计使用，不连接到WMP
       //#define LIS3LV02
       //#define LSM303DLx_ACC
       //#define MMA8451Q
 
-      /* I2C barometer */
+      /* I2C气压计 */
       //#define BMP085
       //#define MS561101BA
 
-      /* I2C magnetometer */
+      /* I2C磁力计 */
       //#define HMC5843
       //#define HMC5883
       //#define AK8975
       //#define MAG3110
 
-      /* Sonar */ // for visualization purpose currently - no control code behind
-      //#define SRF02 // use the Devantech SRF i2c sensors
+      /* 声呐 */ // 目前用作显示用途 - 无控制代码支持
+      //#define SRF02 // 使用Devantech SRF i2c传感器
       //#define SRF08
       //#define SRF10
       //#define SRF23
 
-      /* ADC accelerometer */ // for 5DOF from sparkfun, uses analog PIN A1/A2/A3
+      /* ADC加速度计 */ // 用于来自sparkfun的5DOF，使用模拟针脚A1/A2/A3
       //#define ADCACC
 
-      /* enforce your individual sensor orientation - even overrides board specific defaults */
+      /* 强制你私有的传感器方向 - 甚至覆盖板子特定的默认值 */
       //#define FORCE_ACC_ORIENTATION(X, Y, Z)  {accADC[ROLL]  =  Y; accADC[PITCH]  = -X; accADC[YAW]  = Z;}
       //#define FORCE_GYRO_ORIENTATION(X, Y, Z) {gyroADC[ROLL] = -Y; gyroADC[PITCH] =  X; gyroADC[YAW] = Z;}
       //#define FORCE_MAG_ORIENTATION(X, Y, Z)  {magADC[ROLL]  =  X; magADC[PITCH]  =  Y; magADC[YAW]  = Z;}
 
-      /* Board orientation shift */
-      /* If you have frame designed only for + mode and you cannot rotate FC phisycally for flying in X mode (or vice versa)
-       * you can use one of of this options for virtual sensors rotation by 45 deegres, then set type of multicopter according to flight mode.
-       * Check motors order and directions of motors rotation for matching with new front point!  Uncomment only one option! */
-      //#define SENSORS_TILT_45DEG_RIGHT        // rotate the FRONT 45 degres clockwise
-      //#define SENSORS_TILT_45DEG_LEFT         // rotate the FRONT 45 degres counterclockwise
+      /* 板子方向转移 */
+      /* 如果你的机架设计仅用于+模式，并且你不能物理上将飞控旋转至用于X模式飞行（反之亦然）
+       * 你可以使用其中一个选项虚拟旋转传感器45度，然后通过飞行模式设定多旋翼飞行器的类型。
+       * 检查电机顺序与旋转方向是否与新的“前方”匹配！仅接触其中一项注释！ */
+      //#define SENSORS_TILT_45DEG_RIGHT        // 将“前方”顺时针旋转45度
+      //#define SENSORS_TILT_45DEG_LEFT         // 将“前方”逆时针旋转45度
 
 
 /*************************************************************************************************/
 /*****************                                                                 ***************/
-/****************  第 2 部分 - COPTER TYPE SPECIFIC OPTIONS                               *******/
+/****************  第 2 部分 - 飞行器分类详细选项                                          *******/
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
-  /********************************    TRI    *********************************/
+  /********************************    三轴    *********************************/
     #define YAW_DIRECTION 1
-    //#define YAW_DIRECTION -1 // if you want to reverse the yaw correction direction
-    /* you can change the tricopter servo travel here */
+    //#define YAW_DIRECTION -1 // 如果你要翻转yaw修正方向
+    /* 你可以在此修改三轴飞行器舵机行程 */
       #define TRI_YAW_CONSTRAINT_MIN 1020
       #define TRI_YAW_CONSTRAINT_MAX 2000
-      #define TRI_YAW_MIDDLE 1500 // (*) tail servo center pos. - use this for initial trim; later trim midpoint via LCD
+      #define TRI_YAW_MIDDLE 1500 // (*) 尾舵机中点。 - 使用此项进行初步修正；之后通过LCD修正中点
 
-  /********************************    BI    *********************************/
-    /* you can change the bicopter servo travel direction here */     
+  /********************************    两轴    *********************************/
+    /* 你可以在此修改两轴飞行器舵机行进方向 */     
     //#define BI_PITCH_DIRECTION 1
      #define BI_PITCH_DIRECTION -1
 
-   /********************************    ARM/DISARM    *********************************/
-   /* optionally disable stick combinations to arm/disarm the motors.
-     * In most cases one of the two options to arm/disarm via TX stick is sufficient */
+   /********************************    锁定/解锁    *********************************/
+   /* 可以禁止使用摇杆组合进行锁定/解锁电机。
+     * 在多数情况下，选择其中一种通过发射机摇杆锁定/解锁电机的选项即可 */
     #define ALLOW_ARM_DISARM_VIA_TX_YAW
     //#define ALLOW_ARM_DISARM_VIA_TX_ROLL
 
-  /***********************          Cam Stabilisation             ***********************/
-    /* The following lines apply only for a pitch/roll tilt stabilization system. Uncomment the first or second line to activate it */
+  /***********************          相机稳定             ***********************/
+    /* 以下几行仅用于pitch/roll倾斜稳定系统。接触注释第一或第二行来激活它 */
     //#define SERVO_MIX_TILT
     //#define SERVO_TILT
-    #define TILT_PITCH_MIN    1020    //servo travel min, don't set it below 1020
-    #define TILT_PITCH_MAX    2000    //servo travel max, max value=2000
-    #define TILT_PITCH_MIDDLE 1500    //servo neutral value
-    #define TILT_PITCH_PROP   10      //servo proportional (tied to angle) ; can be negative to invert movement
-    #define TILT_PITCH_AUX_CH AUX3    //AUX channel to overwrite CAM pitch (AUX1-AUX4), comment to disable manual input and free the AUX channel
+    #define TILT_PITCH_MIN    1020    //最低舵机行程，不要低于1020
+    #define TILT_PITCH_MAX    2000    //最高舵机行程，最大值=2000
+    #define TILT_PITCH_MIDDLE 1500    //舵机中立值
+    #define TILT_PITCH_PROP   10      //舵机比例（与角度相关联）；可以为负反转转动方向
+    #define TILT_PITCH_AUX_CH AUX3    //用AUX通道重写相机的pitch（AUX1-AUX4），注释以手动输入并释放AUX通道
     #define TILT_ROLL_MIN     1020
     #define TILT_ROLL_MAX     2000
     #define TILT_ROLL_MIDDLE  1500
     #define TILT_ROLL_PROP    10
-    #define TILT_ROLL_AUX_CH  AUX4    //AUX channel to overwrite CAM Roll (AUX1-AUX4), comment to disable manual input and free the AUX channel
+    #define TILT_ROLL_AUX_CH  AUX4    //用AUX通道重写相机的Roll（AUX1-AUX4），注释以手动输入并释放AUX通道
 
-    /* camera trigger function : activated via Rc Options in the GUI, servo output=A2 on promini */
+    /* 相机快门功能：通过GUI中的遥控选项激活，舵机输出=promini上的A2 */
     //#define CAMTRIG
-    #define CAM_SERVO_HIGH 2000  // the position of HIGH state servo
-    #define CAM_SERVO_LOW 1020   // the position of LOW state servo
-    #define CAM_TIME_HIGH 1000   // the duration of HIGH state servo expressed in ms
-    #define CAM_TIME_LOW 1000    // the duration of LOW state servo expressed in ms
+    #define CAM_SERVO_HIGH 2000  // 舵机高位位置
+    #define CAM_SERVO_LOW 1020   // 舵机低位位置
+    #define CAM_TIME_HIGH 1000   // 舵机高位持续时间，用ms表示
+    #define CAM_TIME_LOW 1000    // 舵机低位持续时间，用ms表示
 
-  /***********************          Flying Wing                   ***********************/
-    /* you can change change servo orientation and servo min/max values here
-       valid for all flight modes, even passThrough mode
-       need to setup servo directions here; no need to swap servos amongst channels at rx */
-    #define PITCH_DIRECTION_L 1 // left servo - pitch orientation
-    #define PITCH_DIRECTION_R -1  // right servo - pitch orientation (opposite sign to PITCH_DIRECTION_L, if servos are mounted in mirrored orientation)
-    #define ROLL_DIRECTION_L 1 // left servo - roll orientation
-    #define ROLL_DIRECTION_R 1  // right servo - roll orientation  (same sign as ROLL_DIRECTION_L, if servos are mounted in mirrored orientation)
-    #define WING_LEFT_MID  1500 // (*) left servo center pos. - use this for initial trim; later trim midpoint via LCD
-    #define WING_RIGHT_MID 1500 // (*) right servo center pos. - use this for initial trim; later trim midpoint via LCD
-    #define WING_LEFT_MIN  1020 // limit servo travel range must be inside [1020;2000]
-    #define WING_LEFT_MAX  2000 // limit servo travel range must be inside [1020;2000]
-    #define WING_RIGHT_MIN 1020 // limit servo travel range must be inside [1020;2000]
-    #define WING_RIGHT_MAX 2000 // limit servo travel range must be inside [1020;2000]
+  /***********************          飞翼                   ***********************/
+    /* 你可以再次修改舵机方向与舵机最大/最小值
+       对所有飞行模式都生效，即使为passThrough模式
+       需要在此设置舵机方向；不必在交换接收机的舵机通道 */
+    #define PITCH_DIRECTION_L 1 //  左舵机 - pitch方向
+    #define PITCH_DIRECTION_R -1  // 右舵机 - pitch方向（如果舵机是镜像安装的，与PITCH_DIRECTION_L符号相反）
+    #define ROLL_DIRECTION_L 1 // 左舵机 - roll方向
+    #define ROLL_DIRECTION_R 1  // 右舵机 - roll方向（如果舵机是镜像安装的，与ROLL_DIRECTION_L符号相同）
+    #define WING_LEFT_MID  1500 // (*) 左舵机中点 - 用此进行初步修正；之后通过LCD修正中点
+    #define WING_RIGHT_MID 1500 // (*) 右舵机中点 - 用此进行初步修正；之后通过LCD修正中点
+    #define WING_LEFT_MIN  1020 // 限制舵机行程，必须在[1020;2000]之内
+    #define WING_LEFT_MAX  2000 // 限制舵机行程，必须在[1020;2000]之内
+    #define WING_RIGHT_MIN 1020 // 限制舵机行程，必须在[1020;2000]之内
+    #define WING_RIGHT_MAX 2000 // 限制舵机行程，必须在[1020;2000]之内
 
-  /***********************          Airplane                       ***********************/
-    //#define USE_THROTTLESERVO // For use of standard 50Hz servo on throttle.
-    #define SERVO_RATES      {100, 100, 100, 100, 100, 100, 100, 100} // Rates in 0-100%
-    #define SERVO_DIRECTION  { -1,   1,   1,   -1,  1,   1,   1,   1 } // Invert servos by setting -1
+  /***********************          飞机                       ***********************/
+    //#define USE_THROTTLESERVO // 用于在油门上使用标准50Hz舵机。
+    #define SERVO_RATES      {100, 100, 100, 100, 100, 100, 100, 100} // Rates在0-100%之间
+    #define SERVO_DIRECTION  { -1,   1,   1,   -1,  1,   1,   1,   1 } // 通过设为-1反转舵机
 
-    //#define FLAPPERONS    AUX4          // Mix Flaps with Aileroins.
-    #define FLAPPERON_EP   { 1500, 1700 } // Endpooints for flaps on a 2 way switch else set {1020,2000} and program in radio.
-    //#define FLAPPERON_EP   { 1200, 1500 } // Or Flapperons up for CrowMix 
-    #define FLAPPERON_INVERT { 1, -1 }    // Change direction om flapperons { Wing1, Wing2 }
+    //#define FLAPPERONS    AUX4          // 混合襟翼与副翼。
+    #define FLAPPERON_EP   { 1500, 1700 } // 用于襟翼双向切换的端点，另外可设为{1020,2000}并在遥控上编程。
+    //#define FLAPPERON_EP   { 1200, 1500 } // 或襟副翼 up for CrowMix 
+    #define FLAPPERON_INVERT { 1, -1 }    // 改变襟副翼的方向{ Wing1, Wing2 }
     
-    //#define FLAPS         AUX4          // Traditional Flaps on A2 invert with SERVO_DIRECTION servo[2).
-    #define FLAP_EP      { 1500, 1900 }   // Endpooints for flaps on a 2 way switch else set {1020,2000} and program in radio.
+    //#define FLAPS         AUX4          // A2上的传统襟翼，通过SERVO_DIRECTION舵机[2)反转。
+    #define FLAP_EP      { 1500, 1900 }   // 用于襟翼双向切换的端点，另外可设为{1020,2000}并在遥控上编程。
 
-    //#define FLAPSPEED     3             // Make flaps move slowm Higher value is Higher Speed.
+    //#define FLAPSPEED     3             // 使襟翼移动变慢，值越高速度越快。
 
-  /***********************      Common for Heli & Airplane         ***********************/
-    //#define D12_POWER      // Use D12 on PROMINI to power sensors. Will disable servo[4] on D12
-    #define SERVO_OFFSET     {  0,   0,   0,  0,   0,   0,  0,   0 } // (*) Adjust Servo MID Offset & Swash angles
-    // Selectable channels:=    ROLL,PITCH,THROTTLE,YAW,AUX1,AUX2,AUX3,AUX4
+  /***********************          直升机与飞机公用           ***********************/
+    //#define D12_POWER      // 使用PROMINI上的D12连接功率传感器。将会禁用D12上的舵机[4]
+    #define SERVO_OFFSET     {  0,   0,   0,  0,   0,   0,  0,   0 } // (*) 调整舵机中点偏移与摆动角度
+    // 可选通道:=    ROLL,PITCH,THROTTLE,YAW,AUX1,AUX2,AUX3,AUX4
 
-    /* Governor: attempts to maintain rpm through pitch and voltage changes
-     * predictive approach: observe input signals and voltage and guess appropriate corrections.
-     * (the throttle curve must leave room for the governor, so 0-50-75-80-80 is ok, 0-50-95-100-100 is _not_ ok.
-     * Can be toggled via aux switch.
+    /* 调节器：试图通过螺距和电压的改变维持转速
+     * 预测方法：观察输入信号与电压并猜测适当的修正。
+     * （油门曲线必须为调节器留有空间，所以0-50-75-80-80是可以的，不可以为0-50-95-100-100。
+     * 可以通过aux开关切换
      */
-    //#define GOVERNOR_P 7     // (*) proportional factor. Higher value -> higher throttle increase. Must be >=1; 0 = turn off
-    //#define GOVERNOR_D 4     // (*) decay timing. Higher value -> takes longer to return throttle to normal. Must be >=1;
-    //#define GOVERNOR_R 10    // (*) voltage impact correction scale in 0.1 units. Higher value -> more compensation for voltage drops. normal is value 10 <=> 1.0; 0 is off
+    //#define GOVERNOR_P 7     // (*) 比例因子。更大的值 -> 更大的油门增量。必须>=1；0 = 关闭
+    //#define GOVERNOR_D 4     // (*) 衰减时间。更大的值 -> 油门回到正常需要更长时间。 必须>=1；
+    //#define GOVERNOR_R 10    // (*) 电压冲击修正大小，以0.1为单位。更大的值 -> 更大的电压降补偿。正常值为10 <=> 1.0；0为关闭
 
-  /***********************          Heli                           ***********************/
-    /* Channel to control CollectivePitch */
+  /***********************          直升机                           ***********************/
+    /* 控制总距的通道 */
     #define COLLECTIVE_PITCH      THROTTLE
-    /* Set Maximum available movement for the servos. Depending on model */
+    /* 设置舵机最大可移动范围。取决于模型 */
     #define SERVO_ENDPOINT_HIGH {2000,2000,2000,2000,2000,2000,2000,2000};
     #define SERVO_ENDPOINT_LOW  {1020,1020,1020,1020,1020,1020,1020,1020};
 
-    /* Limit the range of Collective Pitch. 100% is Full Range each way and position for Zero Pitch */
-    #define COLLECTIVE_RANGE { 80, 0, 80 }// {Min%, ZeroPitch offset from 1500, Max%}.
-    #define YAW_CENTER             1500      // Use servo[5] SERVO_ENDPOINT_HIGH/LOW for the endpoits.
-    #define YAWMOTOR                 0       // If a motor is used as YAW Set to 1 else set to 0.
+    /* 限制总距的范围。100%为每个方向的最大范围，还有零螺距的位置 */
+    #define COLLECTIVE_RANGE { 80, 0, 80 }// {最小%,从1500开始的零螺距偏移,最大%}。
+    #define YAW_CENTER             1500      // 使用舵机[5]的SERVO_ENDPOINT_HIGH/LOW作为端点。
+    #define YAWMOTOR                 0       // 如果一个电机用作YAW则设为1，否则设为0。
 
-    /* Servo mixing for heli 120 Use 1/10 fractions (ex.5 = 5/10 = 1/2)
+    /* 用于120直升机的舵机混控，使用分数1/10（例.5 = 5/10 = 1/2）
                          {Coll,Nick,Roll} */
     #define SERVO_NICK   { +10, -10, -0 }
     #define SERVO_LEFT   { +10, +5, +10 } 
     #define SERVO_RIGHT  { +10, +5, -10 } 
 
-    /* Servo mixing for heli 90 
+    /* 用于90直升机的舵机混控
                             {Coll,Nick,Roll} */
-    #define SERVO_DIRECTIONS { +1, -1, -1 } // -1 will invert servo
+    #define SERVO_DIRECTIONS { +1, -1, -1 } // -1会反转舵机
 
-    /* Limit Maximum controll for Roll & Nick  in 0-100% */
+    /* 限制用于Roll & Nick最大控制，范围0-100% */
     #define CONTROL_RANGE   { 100, 100 }      //  { ROLL,PITCH }
 
-    /* use servo code to drive the throttle output. You want this for analog servo driving the throttle on IC engines.
-       if inactive, throttle output will be treated as a motor output, so it can drive an ESC */
+    /* 使用舵机代码驱动油门输出。用模拟舵机驱动IC引擎上的油门时，你会需要此项。
+       如果不启用，油门输出会被看做电机输出，所以它可以驱动电调 */
     //#define HELI_USE_SERVO_FOR_THROTTLE
 
-  /***********************      Single and DualCopter Settings     ***********************/
-    /* Change to -1 to reverse servomovement per axis
-       Servosettings for SingleCopter */
-    #define SINGLECOPTRER_YAW   {1, 1, 1, 1} // Left, Right,Front,Rear
+  /***********************      单轴与共轴双桨飞行器设置  ***********************/
+    /* 改为-1以反转每轴的舵机移动方向
+       用于单轴飞行器的舵机设置 */
+    #define SINGLECOPTRER_YAW   {1, 1, 1, 1} // 左，右，前，后
     #define SINGLECOPTRER_SERVO {1,-1, 1,-1} // Pitch,Pitch,Roll, Roll    
   
-    /* Servosettings for DualCopter */
+    /* 用于共轴双桨飞行器的舵机设置 */
      #define DUALCOPTER_SERVO {1,1} //Pitch,Roll
-    /* Use  SERVO_OFFSET and SERVO_RATES in Heli and Airplane section for centering and endpoints */
+    /* 使用在直升机与飞机部分的SERVO_OFFSET与SERVO_RATES作为中点和端点 */
 
-  /***********************      your individual mixing     ***********************/
-    /* if you want to override an existing entry in the mixing table, you may want to avoid esditing the
-     * mixTable() function for every version again and again. 
-     * howto: http://www.multiwii.com/wiki/index.php?title=Config.h#Individual_Mixing
+  /***********************      你的个人混控              ***********************/
+    /* 如果你想要覆盖一个选存的混合表中的条目，你可能想要避免
+     * 在每个版本一遍又一遍的编辑mixTable()函数
+     * 操作方式：http://www.multiwii.com/wiki/index.php?title=Config.h#Individual_Mixing
      */
     //#define MY_PRIVATE_MIXING "filename.h"
-    //#define LEAVE_HEADROOM_FOR_MOTORS 4 // leave room for gyro corrrections only for first 4 motors
+    //#define LEAVE_HEADROOM_FOR_MOTORS 4 // 预留空间给陀螺仪修正，仅用于前四个电机
 
 /*************************************************************************************************/
 /*****************                                                                 ***************/
-/****************  第 3 部分 - RC SYSTEM SETUP                                             *******/
+/****************  第 3 部分 - 遥控系统设置                                                *******/
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
-  /* note: no need to uncomment something in this section if you use a standard receiver */
+  /* 提示：如果你使用的是标准接收机，不必解除本节的一些注释 */
 
   /**************************************************************************************/
-  /********                       special receiver types             ********************/
+  /********                       特殊接收机类型                     ********************/
   /**************************************************************************************/
 
-    /****************************    PPM Sum Reciver    ***********************************/
-      /* The following lines apply only for specific receiver with only one PPM sum signal, on digital PIN 2
-         Select the right line depending on your radio brand. Feel free to modify the order in your PPM order is different */
-      //#define SERIAL_SUM_PPM         PITCH,YAW,THROTTLE,ROLL,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For Graupner/Spektrum
-      //#define SERIAL_SUM_PPM         ROLL,PITCH,THROTTLE,YAW,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For Robe/Hitec/Futaba
-      //#define SERIAL_SUM_PPM         ROLL,PITCH,YAW,THROTTLE,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For Multiplex
-      //#define SERIAL_SUM_PPM         PITCH,ROLL,THROTTLE,YAW,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For some Hitec/Sanwa/Others
+    /****************************    PPM Sum接收机       ***********************************/
+      /* 下列几行仅用于特定的仅有一个PPM sum信号的接收机，接在数字针脚2上
+         根据你的遥控品牌选择相应的行。当你的PPM顺序不同时，你可以随意修改顺序 */
+      //#define SERIAL_SUM_PPM         PITCH,YAW,THROTTLE,ROLL,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //用于Graupner/Spektrum
+      //#define SERIAL_SUM_PPM         ROLL,PITCH,THROTTLE,YAW,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //用于Robe/Hitec/Futaba
+      //#define SERIAL_SUM_PPM         ROLL,PITCH,YAW,THROTTLE,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //用于Multiplex
+      //#define SERIAL_SUM_PPM         PITCH,ROLL,THROTTLE,YAW,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //用于一些韩国的/日本三和/其它
 
-      // Uncommenting following line allow to connect PPM_SUM receiver to standard THROTTLE PIN on MEGA boards (eg. A8 in CRIUS AIO)
+      // 解除下面这行注释以允许连接PPM_SUM接收机至MEGA板上的标准油门针脚（例.CRIUS AIO上的A8）
       //#define PPM_ON_THROTTLE
 
-    /**********************    Spektrum Satellite Reciver    *******************************/
-      /* The following lines apply only for Spektrum Satellite Receiver
-         Spektrum Satellites are 3V devices.  DO NOT connect to 5V!
-         For MEGA boards, attach sat grey wire to RX1, pin 19. Sat black wire to ground. Sat orange wire to Mega board's 3.3V (or any other 3V to 3.3V source).
-         For PROMINI, attach sat grey to RX0.  Attach sat black to ground. */
+    /**********************    Spektrum卫星接收机    *******************************/
+      /* 以下几行仅用于Spektrum卫星接收机
+         Spektrum卫星系列是3V设备。不要连接至5V！
+         对于MEGA板，将灰线连接到RX1，19针脚上。黑线接地。橙线连接到Mega板的3.3V上（或其他3V至3.3V的电源）。
+         对于PROMINI，将灰线连接到RX0。黑线接地。 */
       //#define SPEKTRUM 1024
       //#define SPEKTRUM 2048
-      //#define SPEK_SERIAL_PORT 1    // Forced to 0 on Pro Mini and single serial boards; Set to your choice of 0, 1, or 2 on any Mega based board (defaults to 1 on Mega).
+      //#define SPEK_SERIAL_PORT 1    // Pro Mini与其他单串口的板子上只能设为0；在所有基于Mega的板子上设为你选择的0，1，2（在Mega上默认为1）。
       //**************************
-      // Defines that allow a "Bind" of a Spektrum or Compatible Remote Receiver (aka Satellite) via Configuration GUI.
-      //   Bind mode will be same as declared above, if your TX is capable.
-      //   Ground, Power, and Signal must come from three adjacent pins. 
-      //   By default, these are Ground=4, Power=5, Signal=6.  These pins are in a row on most MultiWii shield boards. Pins can be overriden below.  
-      //   Normally use 3.3V regulator is needed on the power pin!!  If your satellite hangs during bind (blinks, but won't complete bind with a solid light), go direct 5V on all pins. 
+      // 定义此项允许Spektrum或兼容机远程接收机（也就是卫星）通过配置GUI对频。
+      //   对频模式与上述的相同，只要你的发射机支持。
+      //   接地，电源，信号必须来自三个邻近的针脚。
+      //   默认下，它们为接地=4，电源=5，信号=6。这些针脚在多数MultiWii扩展板上都为一排。可在下方覆盖针脚。
+      //   通常需要在电源针脚上使用3.3V稳压器！！如果你的卫星在对频时停摆（闪烁，但不会常亮停止闪烁），将所有的针脚连接至5V。
       //**************************
-      //   For Pro Mini, the connector for the Satellite that resides on the FTDI can be unplugged and moved to these three adjacent pins. 
-      //#define SPEK_BIND             //Un-Comment for Spektrum Satellie Bind Support.  Code is ~420 bytes smaller without it. 
+      //   对于Pro Mini，用于卫星的属于FTDI的连接器可以拔掉，并移至那三个相邻针脚。
+      //#define SPEK_BIND             //解除注释以开启Spektrum卫星对频支持。没有它代码可节省约420字节。
       //#define SPEK_BIND_GROUND 4
       //#define SPEK_BIND_POWER  5
       //#define SPEK_BIND_DATA   6
 
-    /*******************************    SBUS RECIVER    ************************************/
-      /* The following line apply only for Futaba S-Bus Receiver on MEGA boards at RX1 only (Serial 1).
-         You have to invert the S-Bus-Serial Signal e.g. with a Hex-Inverter like IC SN74 LS 04 */
+    /*******************************    SBUS接收机        ************************************/
+      /* 下面这行仅用于Futaba S-Bus接收机在MEGA板上的RX1的情况（串口1）。
+         你必须反转S-Bus-串口信号，例如使用十六进制反相器像是IC SN74 LS 04 */
       //#define SBUS
 
-    /******************* RC signal from the serial port via Multiwii Serial Protocol *********/
+    /*******************   通过Multiwii串口协议的来自串口的遥控信号      *********************/
       //#define RCSERIAL
 
 
@@ -391,109 +391,109 @@
 
 /*************************************************************************************************/
 /*****************                                                                 ***************/
-/****************  第 4 部分 - ALTERNATE CPUs & BOARDS                                    *******/
+/****************  第 4 部分 - 替代CPU和板子                                               *******/
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
   /**************************************************************************************/
-  /********                      Promini Specifig Settings           ********************/
+  /********                      Promini专用设置                     ********************/
   /**************************************************************************************/
 
-    /**************************    Hexa Motor 5 & 6 Pins    *******************************/
-      /* PIN A0 and A1 instead of PIN D5 & D6 for 6 motors config and promini config
-         This mod allow the use of a standard receiver on a pro mini
-         (no need to use a PPM sum receiver) */
+    /**************************       六轴电机 5 & 6 针脚    *******************************/
+      /* 用A0与A1针脚代替D5与D6针脚，用于6个电机配置与promini配置
+         该模式允许在promini上标准接收机的使用
+         （不必使用PPM sum接收机） */
       //#define A0_A1_PIN_HEX
 
-    /*********************************    Aux 2 Pin     ***********************************/
-      /* possibility to use PIN8 or PIN12 as the AUX2 RC input (only one, not both)
-         it deactivates in this case the POWER PIN (pin 12) or the BUZZER PIN (pin 8) */
-      #define RCAUXPIN8
+    /*********************************    Aux 2 针脚     ***********************************/
+      /* 让你可以使用针脚8或针脚12作为遥控的AUX2输入（只可启用一个，不可全部启用）
+         如果启用它会使功率针脚（针脚12）或蜂鸣针脚（针脚8）失效 */
+      //#define RCAUXPIN8
       //#define RCAUXPIN12
 
 
   /**************************************************************************************/
-  /*****************             Teensy 2.0 Support                    ******************/
+  /*****************             Teensy 2.0 支持                       ******************/
   /**************************************************************************************/
-    /* uncomment this if you use a teensy 2.0 with teensyduino
-       it needs to run at 16MHz */
+    /* 解除此项如果你使用的是使用teensyduino的teensy 2.0
+       它需要运行在16MHz */
     //#define TEENSY20
 
 
   /**************************************************************************************/
-  /********   Settings for ProMicro, Leonardo and other Atmega32u4 Boards     ***********/
+  /********   用于ProMicro，Leonardo和其他Atmega32u4板子的设置                ***********/
   /**************************************************************************************/
 
-    /*********************************    pin Layout     **********************************/
-      /* activate this for a better pinlayout if all pins can be used => not possible on ProMicro */
+    /*********************************    针脚布局       **********************************/
+      /* 如果所有针脚都能使用，激活此项可获得更好的针脚布局 => 在ProMicro上不可用 */
       //#define A32U4ALLPINS
 
-    /**********************************    PWM Setup     **********************************/
-      /* activate all 6 hardware PWM outputs Motor 5 = D11 and 6 = D13. 
-         note: not possible on the sparkfun promicro (pin 11 & 13 are not broken out there)
-         if activated:
-         Motor 1-6 = 10-bit hardware PWM
-         Motor 7-8 = 8-bit Software PWM
-         Servos    = 8-bit Software PWM
-         if deactivated:
-         Motor 1-4 = 10-bit hardware PWM
-         Motor 5-8 = 10-bit Software PWM
-         Servos    = 10-bit Software PWM */
+    /**********************************    PWM设置       **********************************/
+      /* 激活全部6个硬件PWM输出，电机5 = D11，电机6 = D13。 
+         提示：不可用于sparkfun promicro（针脚11 & 13未被引出）
+         如果激活：
+         电机1-6 = 10位硬件PWM
+         电机7-8 = 8位软件PWM
+         舵机    = 8位软件PWM
+         如果未激活：
+         电机1-4 = 10位硬件PWM
+         电机5-8 = 10位软件PWM
+         舵机    = 10位软件PWM */
       //#define HWPWM6
 
-    /**********************************    Aux 2 Pin     **********************************/
-      /* AUX2 pin on pin RXO */
+    /**********************************    Aux 2 针脚    **********************************/
+      /* AUX2针脚在RXO针脚上 */
       //#define RCAUX2PINRXO
 
-      /* aux2 pin on pin D17 (RXLED) */
+      /* aux2针脚在D17针脚上（RXLED） */
       //#define RCAUX2PIND17
 
-    /**********************************    Buzzer Pin    **********************************/
-      /* this moves the Buzzer pin from TXO to D8 for use with ppm sum or spectrum sat. RX (not needed if A32U4ALLPINS is active) */
+    /**********************************    蜂鸣针脚      **********************************/
+      /* 此项将蜂鸣针脚从TX0移动至D8以使用ppm sum或spectrum sat.接收机（如果启用了A32U4ALLPINS则不需此项） */
       //#define D8BUZZER
 
-    /***********************      Promicro version related     ****************************/
-      /* Inverted status LED for Promicro ver 10 */
+    /***********************      Promicro版本相关             ****************************/
+      /* 反转状态LED用于Promicro版本10 */
       //#define PROMICRO10
 
 
   /**************************************************************************************/
-  /********                      override default pin assignments    ********************/
+  /********                      覆盖默认针脚分配                    ********************/
   /**************************************************************************************/
 
-  /* only enable any of this if you must change the default pin assignment, e.g. your board does not have a specific pin */
-  /* you may need to change PINx and PORTx plus #shift according to the desired pin! */
-  //#define OVERRIDE_V_BATPIN                   A0 // instead of A3    // Analog PIN 3
+  /* 仅在你必须改变默认针脚分配时才启用其中一项，例：你的板子没有特定针脚 */
+  /* 你可能需要依据期望的针脚给PINx与PORTx加上#移位！ */
+  //#define OVERRIDE_V_BATPIN                   A0 // 代替A3    // 模拟针脚3
 
-  //#define OVERRIDE_LEDPIN_PINMODE             pinMode (A1, OUTPUT); // use A1 instead of d13
-  //#define OVERRIDE_LEDPIN_TOGGLE              PINC |= 1<<1; // PINB |= 1<<5;     //switch LEDPIN state (digital PIN 13)
+  //#define OVERRIDE_LEDPIN_PINMODE             pinMode (A1, OUTPUT); // 使用A1代替d13
+  //#define OVERRIDE_LEDPIN_TOGGLE              PINC |= 1<<1; // PINB |= 1<<5;     //切换LED针脚状态（数字针脚13）
   //#define OVERRIDE_LEDPIN_OFF                 PORTC &= ~(1<<1); // PORTB &= ~(1<<5);
   //#define OVERRIDE_LEDPIN_ON                  PORTC |= 1<<1;    // was PORTB |= (1<<5);
 
-  //#define OVERRIDE_BUZZERPIN_PINMODE          pinMode (A2, OUTPUT); // use A2 instead of d8
+  //#define OVERRIDE_BUZZERPIN_PINMODE          pinMode (A2, OUTPUT); // 使用A2代替d8
   //#define OVERRIDE_BUZZERPIN_ON               PORTC |= 1<<2 //PORTB |= 1;
   //#define OVERRIDE_BUZZERPIN_OFF              PORTC &= ~(1<<2); //PORTB &= ~1;
 
 /*************************************************************************************************/
 /*****************                                                                 ***************/
-/****************  第 5 部分 - ALTERNATE SETUP                                            *******/
+/****************  第 5 部分 - 替代设置                                                    *******/
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
-  /******                Serial com speed    *********************************/
-    /* This is the speed of the serial interfaces */
+  /******                串行通讯速度    *********************************/
+    /* 此为串行接口速度 */
     #define SERIAL0_COM_SPEED 115200
     #define SERIAL1_COM_SPEED 115200
     #define SERIAL2_COM_SPEED 115200
     #define SERIAL3_COM_SPEED 115200
 
-    /* interleaving delay in micro seconds between 2 readings WMP/NK in a WMP+NK config
-       if the ACC calibration time is very long (20 or 30s), try to increase this delay up to 4000
-       it is relevent only for a conf with NK */
+    /* 在WMP+NK配置中读取WMP/NK两者之间的交错延迟以微秒为单位
+       如果加速度计校准时间非常长（20或30秒），尝试增大此延迟至4000
+       它仅与有NK（鸡腿柄）的配置相关 */
     #define INTERLEAVING_DELAY 3000
 
-    /* when there is an error on I2C bus, we neutralize the values during a short time. expressed in microseconds
-       it is relevent only for a conf with at least a WMP */
+    /* 当I2C总线有错误时，我们可在很短的时间内中立化相关值。用微秒表示
+       它仅与至少有一个WMP的配置相关 */
     #define NEUTRALIZE_DELAY 100000
 
 
@@ -505,7 +505,7 @@
       /* ITG3200 & ITG3205 低通滤波器设置。假如你不能消除陀螺仪的所有震动，你可以尝试
          减少低通滤波器（LPF）的频率，每次只要减少一档。一旦抽动消失，就保持这个设置。
          它对回馈引起的摆动不起作用，所以只在飞行器随机抽动并且所有抑制和
-         平衡设置失效的时候才改变它。只取消注释其中一项！
+         平衡设置失效的时候才修改它。只取消注释其中一项！
          重要！改变低通滤波器设置将会改变PID的行为，所以在改变LPF后重新调整你的PID。*/
       //#define ITG3200_LPF_256HZ     // 此为默认设置，不需要取消注释，只作为参考
       //#define ITG3200_LPF_188HZ
@@ -515,30 +515,30 @@
       //#define ITG3200_LPF_10HZ      // 只在极端情况下使用此项，更应该换电机和/或螺旋桨
 
       /* MPU6050 低通滤波器设置。假如你不能消除陀螺仪的所有震动，你可以尝试
-         减少低通滤波器（LPF）的频率，每次只要减少一档。一旦抽动消失，就保持这个设置。、
+         减少低通滤波器（LPF）的频率，每次只要减少一档。一旦抽动消失，就保持这个设置。
          它对回馈引起的摆动不起作用，所以只在飞行器随机抽动并且所有抑制和
-         平衡设置失效的时候才改变它。只取消注释其中一项！
+         平衡设置失效的时候才修改它。只取消注释其中一项！
          重要！改变低通滤波器设置将会改变PID的行为，所以在改变LPF后重新调整你的PID。*/
       //#define MPU6050_LPF_256HZ     // 此为默认设置，不需要取消注释，只作为参考
       //#define MPU6050_LPF_188HZ
       //#define MPU6050_LPF_98HZ
-      #define MPU6050_LPF_42HZ
+      //#define MPU6050_LPF_42HZ
       //#define MPU6050_LPF_20HZ
       //#define MPU6050_LPF_10HZ
       //#define MPU6050_LPF_5HZ       // 只在极端情况下使用此项，更应该换电机和/或螺旋桨
 
-    /******                Gyro smoothing    **********************************/
-      /* GYRO_SMOOTHING. In case you cannot reduce vibrations _and_ _after_ you have tried the low pass filter options, you
-         may try this gyro smoothing via averaging. Not suitable for multicopters!
-         Good results for helicopter, airplanes and flying wings (foamies) with lots of vibrations.*/
-      //#define GYRO_SMOOTHING {20, 20, 3}    // (*) separate averaging ranges for roll, pitch, yaw
+    /******                陀螺仪平滑化            **********************************/
+      /* GYRO_SMOOTHING.在你不能消除振动的情况下，_并且_是在尝试了低通滤波器选项_之后_，你
+         可尝试此通过平均化的陀螺仪平滑化。不适用于多旋翼飞行器！
+         在有很多振动的直升机，飞机和飞翼（泡沫的）上可获得良好结果。*/
+      //#define GYRO_SMOOTHING {20, 20, 3}    // (*) 分别为roll, pitch, yaw的平均化范围
 
-    /************************    Moving Average Gyros    **********************************/
-      //#define MMGYRO 10                      // (*) Active Moving Average Function for Gyros
-      //#define MMGYROVECTORLENGTH 15          // Length of Moving Average Vector (maximum value for tunable MMGYRO
-      /* Moving Average ServoGimbal Signal Output */
-      //#define MMSERVOGIMBAL                  // Active Output Moving Average Function for Servos Gimbal
-      //#define MMSERVOGIMBALVECTORLENGHT 32   // Lenght of Moving Average Vector
+    /************************    移动平均陀螺仪    **********************************/
+      //#define MMGYRO 10                      // (*) 激活用于陀螺仪的移动平均函数
+      //#define MMGYROVECTORLENGTH 15          // 移动平均向量的长度（用于可调节的MMGYRO的最大值
+      /* 移动平均舵机云台信号输出 */
+      //#define MMSERVOGIMBAL                  // 激活用于舵机云台的输出移动平均函数
+      //#define MMSERVOGIMBALVECTORLENGHT 32   // 移动平均向量的长度
 
 
 
@@ -549,83 +549,83 @@
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
-  /************************        continuous gyro calibration        ********************/
-  /* Gyrocalibration will be repeated if copter is moving during calibration. */
+  /************************        连续陀螺仪校准                     ********************/
+  /* 如果在校准过程中飞行器被移动，陀螺仪校准将会重复。 */
     //#define GYROCALIBRATIONFAILSAFE
 
-  /************************        AP FlightMode        **********************************/
-    /* Temporarily Disables GPS_HOLD_MODE to be able to make it possible to adjust the Hold-position when moving the sticks.*/
+  /************************        AP飞行模式           **********************************/
+    /* 临时禁用GPS_HOLD_MODE（GPS保持模式），让移动摇杆时可以调整定点位置。*/
     #define AP_MODE 40  // Create a deadspan for GPS.
         
-  /************************   Assisted AcroTrainer    ************************************/
-    /* Train Acro with auto recovery. Value set the point where ANGLE_MODE takes over.
-       Remember to activate ANGLE_MODE first!...
-       A Value on 200 will give a very distinct transfer */
+  /************************    辅助特技练习器         ************************************/
+    /* 在自动复原辅助下训练特技。该值设定ANGLE_MODE接管的点。
+       记住首先激活ANGLE_MODE！...
+       值为200将会给你一个很明显的转换 */
     //#define ACROTRAINER_MODE 200   // http://www.multiwii.com/forum/viewtopic.php?f=16&t=1944#p17437
 
 
-  /********                          Failsafe settings                 ********************/
-    /* Failsafe check pulses on four main control channels CH1-CH4. If the pulse is missing or bellow 985us (on any of these four channels) 
-       the failsafe procedure is initiated. After FAILSAFE_DELAY time from failsafe detection, the level mode is on (if ACC or nunchuk is avaliable),
-       PITCH, ROLL and YAW is centered and THROTTLE is set to FAILSAFE_THR0TTLE value. You must set this value to descending about 1m/s or so 
-       for best results. This value is depended from your configuration, AUW and some other params.  Next, afrer FAILSAFE_OFF_DELAY the copter is disarmed, 
-       and motors is stopped. If RC pulse coming back before reached FAILSAFE_OFF_DELAY time, after the small quard time the RC control is returned to normal. */
-    //#define FAILSAFE                                // 接触注释来激活failsafe函数
-    #define FAILSAFE_DELAY     10                     // Guard time for failsafe activation after signal lost. 1 step = 0.1sec - 1sec in example
-    #define FAILSAFE_OFF_DELAY 200                    // Time for Landing before motors stop in 0.1sec. 1 step = 0.1sec - 20sec in example
-    #define FAILSAFE_THROTTLE  (MINTHROTTLE + 200)    // (*) Throttle level used for landing - may be relative to MINTHROTTLE - as in this case
+  /********                          失控保护设置                     ********************/
+    /* 失控保护检查四个控制通道CH1-CH4的脉冲。如果脉冲丢失或低于985us（在这四个通道的任意一个上）
+       失控保护程序就会启动。从失控保护检测到，再经过FAILSAFE_DELAY的时间，自稳模式就会开启（如果加速度或鸡腿柄可用），
+       PITCH，ROLL和YAW被置中，油门设为FAILSAFE_THR0TTLE的值。你必须设定该值使下降速度在1m/s左右
+       以获得最佳结果。该值取决于你的配置，总重量和一些其他参数。接下来，在FAILSAFE_OFF_DELAY之后，飞行器会被锁定，
+       并且电机会停止。如果遥控脉冲在到达FAILSAFE_OFF_DELAY时间之前恢复，在很短的保护时间之后遥控就会恢复正常。 */
+    //#define FAILSAFE                                // 解除注释以激活failsafe函数
+    #define FAILSAFE_DELAY     10                     // 用于丢失信号之后失控保护激活之前的保护时间。1步=0.1秒 - 示例中为1秒
+    #define FAILSAFE_OFF_DELAY 200                    // 用于电机停止前的着陆时间，以0.1秒为单位。1步=0.1秒 - 示例中为20秒
+    #define FAILSAFE_THROTTLE  (MINTHROTTLE + 200)    // (*) 用于降落的油门级别 - 可与MINTHROTTLE相关联 - 如本例所示
 
 
-  /*****************                DFRobot LED RING    *********************************/
-    /* I2C DFRobot LED RING communication */
+  /*****************                DFRobot LED光环     *********************************/
+    /* I2C DFRobot LED光环通讯 */
     //#define LED_RING
 
-  /********************************    LED FLASHER    ***********************************/
+  /********************************    LED闪光灯      ***********************************/
     //#define LED_FLASHER
     //#define LED_FLASHER_DDR DDRB
     //#define LED_FLASHER_PORT PORTB
     //#define LED_FLASHER_BIT PORTB4
     //#define LED_FLASHER_INVERT
-    //#define LED_FLASHER_SEQUENCE        0b00000000      // leds OFF
-    //#define LED_FLASHER_SEQUENCE_ARMED  0b00000101      // create double flashes
-    //#define LED_FLASHER_SEQUENCE_MAX    0b11111111      // full illumination
-    //#define LED_FLASHER_SEQUENCE_LOW    0b00000000      // no illumination
+    //#define LED_FLASHER_SEQUENCE        0b00000000      // leds关闭
+    //#define LED_FLASHER_SEQUENCE_ARMED  0b00000101      // 创建双闪
+    //#define LED_FLASHER_SEQUENCE_MAX    0b11111111      // 全照明
+    //#define LED_FLASHER_SEQUENCE_LOW    0b00000000      // 无照明
 
 
-  /*******************************    Landing lights    *********************************/
-  /* Landing lights
-     Use an output pin to control landing lights.
-     They can be switched automatically when used in conjunction
-     with altitude data from a sonar unit. */
+  /*******************************    着陆灯            *********************************/
+  /* 着陆灯
+     使用一个输出针脚控制着陆灯。
+     它与从声纳获得的高度数据结合时
+     可以自动开关。 */
     //#define LANDING_LIGHTS_DDR DDRC
     //#define LANDING_LIGHTS_PORT PORTC
     //#define LANDING_LIGHTS_BIT PORTC0
     //#define LANDING_LIGHTS_INVERT
 
-    /* altitude above ground (in cm) as reported by sonar */
+    /* 依据声纳传来的数在地面之上的高度（以cm为单位） */
     //#define LANDING_LIGHTS_AUTO_ALTITUDE 50
 
-    /* adopt the flasher pattern for landing light LEDs */
+    /* 让闪光灯的样式应用于着陆灯LED */
     //#define LANDING_LIGHTS_ADOPT_LED_FLASHER_PATTERN
 
-  /*************************    INFLIGHT ACC Calibration    *****************************/
-    /* This will activate the ACC-Inflight calibration if unchecked */
+  /*************************    飞行时加速度计校准           *****************************/
+    /* 此项会激活加速度计飞行时校准 */
     //#define INFLIGHT_ACC_CALIBRATION
 
-  /**************************    Disable WMP power pin     *******************************/
-    /* disable use of the POWER PIN
-       (allready done if the option RCAUXPIN12 is selected) */
+  /**************************    禁用WMP电源针脚           *******************************/
+    /* 禁止使用电源阵脚
+       （如果RCAUXPIN12选项已被选则此项已启用） */
     //#define DISABLE_POWER_PIN
 
-  /*******************************    OSD Switch    *************************************/
-    // This adds a box that can be interpreted by OSD in activation status (to switch on/off the overlay for instance)
+  /*******************************    OSD切换        *************************************/
+    // 此项会添加一个可被OSD解读的激活状态的选框（比如说开关覆盖物）
   //#define OSD_SWITCH
 
   /**************************************************************************************/
-  /***********************                  TX-相关            **************************/
+  /***********************              发射机-相关            **************************/
   /**************************************************************************************/
 
-    /* 引入一个死区（译者注：无作用控制区）在摇杆中点周围
+    /* 在摇杆中点周围引入一个死区（译者注：无作用控制区）
        必须大于零，如果你不需要在roll，pitch和yaw上的死区就注释掉它 */
     //#define DEADBAND 6
 
@@ -639,74 +639,74 @@
   /**************************************************************************************/
 
     /* GPS使用一个串口
-       如果启用， define here the Arduino串口号 and the UART speed
-       注： 只有the RX 针脚 is used in case of NMEA 模式， the GPS is not configured by multiwii
-       in NMEA 模式 the GPS must be configured to output GGA and RMC NMEA 语句 (which is generally the default conf for most GPS devices)
-       at 至少5Hz更新速率. 解除注释第一行来选择arduino的串口 */
-    //#define GPS_SERIAL 2 // flyduino v2应设为2。 此为arduino MEGA上的串口号
+       如果启用，在此定义Arduino串口号与UART速度
+       注：如在NMEA模式只有RX针脚是被使用的，GPS不可被multiwii配置
+       在NMEA模式下，GPS必须配置为输出GGA与RMC NMEA语句（在大部分GPS设备中通常为默认配置）
+       至少为5Hz更新速率。解除第一行注释来选择用于GPS的arduino串口 */
+    //#define GPS_SERIAL 2 // flyduino v2应设为2。此为arduino MEGA上的串口号
     //#define GPS_BAUD   57600
     #define GPS_BAUD   115200
 
 
    /* GPS协议 
-       NMEA  - 标准NMEA协议。GGA，GSA与RMC语句是需要使用的
-       UBLOX - U-Blox二进制协议，使用ublox配置文件 (u-blox-config.ublox.txt) from the source tree 
+       NMEA  - 标准NMEA协议。需要GGA，GSA与RMC语句
+       UBLOX - U-Blox二进制协议，使用来自源码树的ublox配置文件（u-blox-config.ublox.txt）
        MTK_BINARY16 与 MTK_BINARY19 - 基于MTK3329芯片的GPS，使用DIYDrones二进制固件（v1.6 或 v1.9）
-       如启用 UBLOX 与 MTK_BINARY 你不需要在multiwii代码中使用 GPS_FILTERING  !!! */
+       在使用UBLOX与MTK_BINARY时你不需要在multiwii代码中使用GPS_FILTERING!!! */
 
     
     //#define NMEA
     //#define UBLOX
     //#define MTK_BINARY16
     //#define MTK_BINARY19
-    //#define INIT_MTK_GPS        // 初始化MTK GPS。应用指定的速度，5Hz更新速率与 GGA & RMC sentence or binary 设置
+    //#define INIT_MTK_GPS        // 初始化MTK GPS。使其使用选定的速度，5Hz更新速率与GGA & RMC语句或二进制的设置
 
-    //#define GPS_PROMINI_SERIAL    57600 //  当ardu（ino）启动时如果连接了GPS，将会自适应
+    //#define GPS_PROMINI_SERIAL    57600 //  当ardu（ino）启动时如果已连接了GPS，将会自动检测
    
-    /* I2C GPS 设备，使用一个独立的arduino + GPS设备制作
+    /* I2C GPS设备，使用一个独立的arduino + GPS设备制作
        包含一些导航函数
-       contribution from EOSBandi   http://code.google.com/p/i2c-gps-nav/ 
+       由EOSBandi贡献   http://code.google.com/p/i2c-gps-nav/ 
        你必须使用I2CGpsNav r33以上版本 */
     //#define I2C_GPS
 
-    /* I2C GPS 设备，使用独立的ATTiny[24]313 + GPS设备与
+    /* I2C GPS设备，使用独立的ATTiny[24]313 + GPS设备与
        可选的声呐设备制作。    https://github.com/wertarbyte/tiny-gps/ */
     /* 从Tiny-GPS获取GPS数据 */
     //#define TINY_GPS
     /* 从Tiny-GPS获取声呐数据 */
     //#define TINY_GPS_SONAR
 
-    /* GPS data readed from Misio-OSD - GPS module connected to OSD, and MultiWii read GPS data from OSD - tested and working OK ! */
+    /* 从Misio-OSD中读取GPS数据 - GPS模块连接至OSD，然后MultiWii从OSD中读取GPS数据 - 已测试并且运行正常! */
     //#define GPS_FROM_OSD
 
-    /* indicate a valid GPS fix with at least 5 satellites by flashing the LED  - Modified by MIS - Using stable LED (YELLOW on CRIUS AIO) led work as sat number indicator 
-      - No GPS FIX -> LED blink at speed of incoming GPS frames
-      - Fix and sat no. bellow 5 -> LED off
-      - Fix and sat no. >= 5 -> LED blinks, one blink for 5 sat, two blinks for 6 sat, three for 7 ... */
+    /* 通过LED闪烁表明GPS搜到了至少5颗有效的卫星 - 由MIS修改 - 使用常亮的LED（CRIUS AIO上为黄色）led作为星数指示器工作
+      - GPS无定位 -> LED闪烁速度为收到GPS帧的速度
+      - 定位并且星数小于5 -> LED关闭
+      - 定位并且星数 >= 5 -> LED闪烁，闪一下表示5颗星，闪两下表示6颗星，三下表示7 ... */
     #define GPS_LED_INDICATOR
 
-    //#define USE_MSP_WP                        // 启用MSP_WP命令， which is used by WinGUI to display and log Home and Poshold positions
+    //#define USE_MSP_WP                        // 启用MSP_WP命令，用于WinGUI显示与记录家与定点的位置
 
     //#define DONT_RESET_HOME_AT_ARM             // 家（HOME）的地点会在每次解锁时重置，解除注释此项来禁用它（你可以通过校准陀螺仪来设置家的地点）
 
     /* GPS navigation can control the heading */
     
-    #define NAV_CONTROLS_HEADING       true      // copter faces toward the navigation point, maghold must be enabled for it
-    #define NAV_TAIL_FIRST             false     // true - copter comes in with tail first 
-    #define NAV_SET_TAKEOFF_HEADING    true      // true - when copter arrives to home position it rotates it's head to takeoff direction
+    #define NAV_CONTROLS_HEADING       true      // 飞行器面对着航电飞行，磁场保持必须为此开启
+    #define NAV_TAIL_FIRST             false     // true - 飞行器以尾部首先飞来
+    #define NAV_SET_TAKEOFF_HEADING    true      // true - 当飞行器到达家的位置时他会旋转至起飞时的角度
     
     
     /* 从这里获取你的磁偏角：http://magnetic-declination.com/
-       转换度+分为十进制的度 ==> 度+分*(1/60)
-       Note the sign on declination it could be negative or positive (WEST or EAST) */
-    //#define MAG_DECLINIATION  3.96f              // 匈牙利布达佩斯。
+       转换度+分至小数的角度，通过 ==> 度+分*(1/60)
+       注意磁偏角的符号，它可为负或正（西或东） */
+    //#define MAG_DECLINIATION  3.96f              // 用于匈牙利布达佩斯。
     #define MAG_DECLINIATION  0.0f
 
-    #define GPS_LEAD_FILTER                      // Adds a forward predictive filterig to compensate gps lag。 Code based on Jason Short's lead filter implementation
+    #define GPS_LEAD_FILTER                      // 添加向前预测滤波以补偿GPS延迟。代码基于Jason Short领导的滤波器实现
     
-    //#define GPS_FILTERING                        // add a 5 element moving average filter to GPS coordinates, helps eliminate gps noise but adds latency comment out to disable
-    #define GPS_WP_RADIUS              200       // if we are within this distance to a waypoint then we consider it reached (distance is in cm)
-    #define NAV_SLEW_RATE              30        // Adds a rate control to nav output, will smoothen out nav angle spikes
+    //#define GPS_FILTERING                        // 添加5元素移动平均滤波器至GPS坐标，帮助消除GPS噪波但会增加延时，注释以禁用
+    #define GPS_WP_RADIUS              200       // 如果我们与航点在此距离以内，我们则认为已到达航点（以cm为单位）
+    #define NAV_SLEW_RATE              30        // 将速率控制添加至导航输出，可磨平导航角度毛刺
 
 
   /**************************************************************************************/
@@ -715,36 +715,36 @@
 
     /* http://www.multiwii.com/wiki/index.php?title=Extra_features#LCD_.2F_OLED */
 
-    /*****************************    LCD种类            **********************************/
-      /* 选择LCD attached for configuration and telemetry, see notes below */
-      //#define LCD_DUMMY       // No Physical LCD attached.  With this & LCD_CONF defined, TX sticks still work to set gains, by watching LED blink.  
-      //#define LCD_SERIAL3W    // Alex' initial variant with 3 wires, using rx-pin for transmission @9600 baud fixed
-      //#define LCD_TEXTSTAR    // SERIAL LCD: Cat's Whisker LCD_TEXTSTAR Module CW-LCD-02 (Which has 4 input keys for selecting menus)
-      //#define LCD_VT100       // SERIAL LCD: vt100 compatible terminal emulation (blueterm, putty, etc.)
-      //#define LCD_TTY         // SERIAL LCD: useful to tweak parameters over cable with arduino IDE 'serial monitor'
-      //#define LCD_ETPP        // I2C LCD: Eagle Tree Power Panel LCD, which is i2c (not serial)
-      //#define LCD_LCD03       // I2C LCD: LCD03, which is i2c
-      //#define OLED_I2C_128x64 // I2C LCD: OLED http://www.multiwii.com/forum/viewtopic.php?f=7&t=1350
+    /*****************************    LCD种类              **********************************/
+      /* 选择用于配置和遥测的LCD，见下方注解 */
+      //#define LCD_DUMMY       // 无物理LCD附加。通过定义此与LCD_CONF，发射机遥杆可用于设置增益，通过观察LED闪烁。  
+      //#define LCD_SERIAL3W    // Alex的初始变体使用3条导线，使用rx针脚进行传输@固定的9600波特率
+      //#define LCD_TEXTSTAR    // 串口LCD：Cat's Whisker品牌的LCD_TEXTSTAR模块CW-LCD-02（拥有4个输入按键用于选择菜单）
+      //#define LCD_VT100       // 串口LCD：vt100兼容终端仿真（blueterm，putty等）
+      //#define LCD_TTY         // 串口LCD：用于通过线缆与arduino IDE“串口监视器”连接调整参数
+      //#define LCD_ETPP        // I2C LCD：Eagle Tree品牌的Power Panel LCD，使用i2c（非串口）
+      //#define LCD_LCD03       // I2C LCD：LCD03，使用i2c
+      //#define OLED_I2C_128x64 // I2C LCD：OLED http://www.multiwii.com/forum/viewtopic.php?f=7&t=1350
 
-    /******************************   Display settings   ***********************************/
-      #define LCD_SERIAL_PORT 0    // must be 0 on Pro Mini and single serial boards; Set to your choice on any Mega based board
+    /******************************   显示设置            ***********************************/
+      #define LCD_SERIAL_PORT 0    // 在Pro Mini以及其他单串口板上只能设为0，在任何基于Mega的板子上可设置为你的选择
 
-      //#define SUPPRESS_OLED_I2C_128x64LOGO  // suppress display of OLED logo to save memory
+      //#define SUPPRESS_OLED_I2C_128x64LOGO  // 禁用OLED logo显示来节省储存
 
-    /* double font height for better readability. Reduces visible #lines by half.
-     * The lower part of each page is accessible under the name of shifted keyboard letter :
+    /* 为获得更好的可读性，使用双倍字体高度。减少一半可见#行。
+     * 每个页面的下半部分以按住shift的键盘文字作为名字：
      * 1 - ! , 2 - @ , 3 - # , 4 - $ , 5 - % , 6 - ^ , 7 - & , 8 - * , 9 - (
-     * You must add both to your lcd.telemetry.* sequences
+     * 你必须同时添加到你的lcd.遥测.*序列中
      */
-      //#define DISPLAY_FONT_DSIZE //currently only aplicable for OLED_I2C_128x64
+      //#define DISPLAY_FONT_DSIZE //目前只能应用于OLED_I2C_128x64
 
-    /* 显示风格 - AUTODETECTED via LCD_ setting - only activate to override defaults */
+    /* 显示风格 - 通过LCD_ setting自动检测 - 仅在覆盖默认时激活 */
       //#define DISPLAY_2LINES
       //#define DISPLAY_MULTILINE
-      //#define MULTILINE_PRE 2  // multiline configMenu # pref lines
-      //#define MULTILINE_POST 6 // multiline configMenu # post lines
+      //#define MULTILINE_PRE 2  // 多行配置菜单#之前的行
+      //#define MULTILINE_POST 6 // 多行配置菜单#之后的行
     /********************************    导航             ***********************************/
-    /* keys to navigate the LCD menu */
+    /* 用来导航LCD配置菜单的按键 */
       #define LCD_MENU_PREV 'p'
       #define LCD_MENU_NEXT 'n'
       #define LCD_VALUE_UP 'u'
@@ -757,34 +757,34 @@
   /***********************             LCD配置菜单             **************************/
   /**************************************************************************************/
 
-    /* 解除本行注释if you plan to use a LCD or OLED for tweaking parameters
+    /* 如果你准备将LCD或OLED用于调整参数，那么解除本行注释
      * http://www.multiwii.com/wiki/index.php?title=Extra_features#Configuration_Menu */
       //#define LCD_CONF
 
-    /* to include setting the aux switches for AUX1 -> AUX4 通过 LCD */
+    /* 用于包含通过LCD进行AUX1 -> AUX4辅助开关切换的设置 */
       //#define LCD_CONF_AUX
 
-    /* optional exclude some functionality - uncomment to suppress some unwanted telemetry pages */
+    /* 可选排除一些功能 - 解除注释以禁用一些不需要的遥测页面 */
       //#define SUPPRESS_LCD_CONF_AUX34
 
   /**************************************************************************************/
   /***********************              LCD遥测                **************************/
   /**************************************************************************************/
 
-    /* to monitor system values (battery level, loop time etc. with LCD 
+    /* 通过LCD监控系统数据（电池电压，周期时间等）
      * http://www.multiwii.com/wiki/index.php?title=LCD_Telemetry */
 
-    /********************************    Activation     ***********************************/
+    /********************************    激活     ***********************************/
     //#define LCD_TELEMETRY
 
-    /* to enable automatic hopping between a choice of telemetry pages uncomment this. */
-    //#define LCD_TELEMETRY_AUTO "123452679" // pages 1 to 9 in ascending order
-    //#define LCD_TELEMETRY_AUTO  "212232425262729" // strong emphasis on page 2
+    /* 在解除注释于此的一个遥测页面组合中启用自动跳转。 */
+    //#define LCD_TELEMETRY_AUTO "123452679" // 升序显示1至9页
+    //#define LCD_TELEMETRY_AUTO  "212232425262729" // 着重显示第2页
 
-    /* manual stepping sequence; first page of the sequence gets loaded at startup to allow non-interactive display */
-    //#define LCD_TELEMETRY_STEP "0123456789" // should contain a 0 to allow switching off.
+    /* 手动步进序列；序列的第一页在启动时加载以允许无交互时显示 */
+    //#define LCD_TELEMETRY_STEP "0123456789" // 应包含一个0以允许关闭。
 
-    /* optional exclude some functionality - uncomment to suppress some unwanted telemetry pages */
+    /* 可选地排除一些功能 - 解除注释以禁用一些不需要的遥测页面 */
     //#define SUPPRESS_TELEMETRY_PAGE_1
     //#define SUPPRESS_TELEMETRY_PAGE_2
     //#define SUPPRESS_TELEMETRY_PAGE_3
@@ -805,53 +805,53 @@
   /****                      蜂鸣器（BUZZER）                      ****/
   /********************************************************************/
     //#define BUZZER
-    //#define RCOPTIONSBEEP         // 解除注释 this if you want the buzzer to beep at any rcOptions change on channel Aux1 to Aux4
-    //#define ARMEDTIMEWARNING 330  // (*) Trigger an alarm after a certain time of being armed [s] to save you lipo (if your TX does not have a countdown)
-    //#define PILOTLAMP             //Uncomment if you are using a X-Arcraft Pilot Lamp
+    //#define RCOPTIONSBEEP         // 如果你想在遥控选项在通道Aux1至Aux4改变时让蜂鸣器响起，解除注释此项
+    //#define ARMEDTIMEWARNING 330  // (*) 在解锁一段时间[s]后触发警报以保护锂电。（如果你的发射机没有倒计时）
+    //#define PILOTLAMP             //如果你在使用X-Arcraft导航灯那么解除注释
 
   /********************************************************************/
   /****                      电池电压监控                          ****/
   /********************************************************************/
-    /* for V BAT 监控
-       after the resistor divisor we should get [0V;5V]->[0;1023] on analog V_BATPIN
-       with R1=33k and R2=51k
+    /* 用于V BAT（电池电压）监控
+       在电阻分压后，我们在模拟V_BAT针脚上应获得[0V;5V]->[0;1023]
+       通过R1=33k和R2=51k
        vbat = [0;1023]*16/VBATSCALE
-       must be associated with #define BUZZER ! */
-    //#define VBAT              // uncomment this line to activate the vbat code
-    #define VBATSCALE       131 // (*) change this value if readed Battery voltage is different than real voltage
-    #define VBATNOMINAL     126 // 12,6V full battery nominal voltage - only used for lcd.telemetry
+       必须与#define BUZZER结合! */
+    //#define VBAT              // 解除注释本行以激活vbat代码
+    #define VBATSCALE       131 // (*) 如果读取到的电池电压与真实电压不同，修改该值
+    #define VBATNOMINAL     126 // 12,6V满电标准电压 - 仅用于lcd.遥测
     #define VBATLEVEL_WARN1 107 // (*) 10,7V
     #define VBATLEVEL_WARN2  99 // (*) 9.9V
-    #define VBATLEVEL_CRIT   93 // (*) 9.3V - critical condition: if vbat ever goes below this value, permanent alarm is triggered
-    #define NO_VBAT          16  // (*) Avoid beeping without any battery
+    #define VBATLEVEL_CRIT   93 // (*) 9.3V - 临界情况：如果vbat持续低于该值，就会触发警报长响
+    #define NO_VBAT          16  // (*) 避免在没有电池时响起
 
 
   /********************************************************************/
   /****                      功率计（电池容量监控）                ****/
   /********************************************************************/
 
-    /* 启用电池能量消耗监控（think of mAh)
-       allows to set alarm value 在GUI中或通过LCD
-       Full description and howto here http://www.multiwii.com/wiki/index.php?title=Powermeter
+    /* 启用电池能量消耗监控（以mAh考虑）
+       允许在GUI中或通过LCD设置警戒值
+       全部描述与操作方法请见此 http://www.multiwii.com/wiki/index.php?title=Powermeter
        有两个选项：
        1 - 硬件: - （使用硬件传感器，配置后将获得相当不错的结果）
-       2 - 软件: - （good results +-5% for plush and mystery ESCs @ 2S and 3S, not good with SuperSimple ESC)    */
+       2 - 软件: - （使用plush与mystery电调可获得+-5%的料号结果，使用SuperSimple电调结果不佳）    */
     //#define POWERMETER_SOFT
     //#define POWERMETER_HARD
-    /* PLEVELSCALE is the step size you can use to set alarm */
-    #define PLEVELSCALE 50 // 如果你改变了这个值 for other granularity, you must search for comments in code to change accordingly
-    /* larger PLEVELDIV will get you smaller value for power (mAh equivalent) */
-    #define PLEVELDIV 5000 // (*) default for soft - if you lower PLEVELDIV, beware of overrun in uint32 pMeter
-    #define PLEVELDIVSOFT PLEVELDIV // for soft always equal to PLEVELDIV; for hard set to 5000
-    #define PSENSORNULL 510 // (*) set to analogRead() value for zero current; for I=0A my sensor gives 1/2 Vss; that is approx 2.49Volt;
-    #define PINT2mA 13 // (*) for telemtry display: one integer step on arduino analog translates to mA (example 4.9 / 37 * 100
+    /* PLEVELSCALE是你用于设置警告的步进大小 */
+    #define PLEVELSCALE 50 // 如果你将这些值修改为其他间隔大小，你必须在代码中查找注释进行相应的修改
+    /* 更大的PLEVELDIV会让你得到更小的功率（就是mAh）值 */
+    #define PLEVELDIV 5000 // (*) 默认用于软件 - 如果你使用了更低的PLEVELDIV，当心溢出uint32功率计范围
+    #define PLEVELDIVSOFT PLEVELDIV // 用于软件使用等于PLEVELDIV；用于硬件设为5000
+    #define PSENSORNULL 510 // (*) 设置0电流时analogRead()的值；I=0A时，我的传感器得到1/2 Vss；约为2.49伏；
+    #define PINT2mA 13 // (*) 用于遥测显示：一个用在arduino模拟转换为mA时的整数（例4.9 / 37 * 100
 
   /********************************************************************/
   /****                      高度保持                              ****/
   /********************************************************************/
 
-    /* 解除注释来禁用高度保持特性。
-     * This is useful if 所有下列应用
+    /* 解除注释以禁用高度保持特性。
+     * 此项可用于所有下列应用
      * + 你有一个气压传感器
      * + 想要高度值输出
      * + 不需要使用高度保持特性
@@ -859,37 +859,37 @@
      */
     //#define SUPPRESS_BARO_ALTHOLD
 
-  /* Natural alt change for rapid pilots. It's temporary switch OFF the althold when throttle stick is out of deadband defined with ALT_HOLD_THROTTLE_NEUTRAL_ZONE
-   * but if it's commented: Smooth alt change routine is activated, for slow auto and aerophoto modes (in general solution from alexmos). It's slowly increase/decrease 
-   * altitude proportional to stick movement (+/-100 throttle gives about +/-50 cm in 1 second with cycle time about 3-4ms)
+  /* 用于快速操纵的自然高度变化。当油门摇杆移出ALT_HOLD_THROTTLE_NEUTRAL_ZONE定义的死区时，临时关闭定高
+   * 但如果它被注释掉：平滑高度变化程序被激活，用于慢速自动模式与航拍模式（来自alexmos的通用解决方案）。可缓慢地升高/降低
+   * 高度与摇杆移动成比例（+/-100油门在周期时间为3-4ms时，1秒产生约+/-50cm的高度变化）
    */
   #define ALTHOLD_FAST_THROTTLE_CHANGE
 
   /********************************************************************/
-  /****                     高度气压计                             ****/
+  /****                     高度爬升率测定器                       ****/
   /********************************************************************/
 
-    /* 启用 get audio feedback upon rising/falling copter/plane.
-     * Requires a working baro.
-     * For now, Output gets sent to an enabled vt100 terminal program over the serial line.
-     * choice of two methods (enable either one or both)
-     * 方式 1 : use short term movement from baro ( bigger code size)
-     * 方式 2 : use long term observation of altitude from baro (smaller code size)
+    /* 启用以获得来自上升/下降中的飞行器/飞机的声频反馈。
+     * 需要工作中的气压计。
+     * 目前，输出会通过串行线发送至启用中的vt100终端程序。
+     * 有两种方式可选（启用其中一个或同时启用）
+     * 方式1：使用来自气压计的短期移动（更大的代码尺寸）
+     * 方式2：使用来自气压计的长期高度观察（更小的代码尺寸）
      */
     //#define VARIOMETER 12            // 可用值：12 = 方式 1 & 2 ；1 = 方式 1；2 = 方式 2
-    //#define SUPPRESS_VARIOMETER_UP   // if no signaling for up movement is desired
-    //#define SUPPRESS_VARIOMETER_DOWN // if no signaling for down movement is desired
-    //#define VARIOMETER_SINGLE_TONE   // use only one tone (BEL); neccessary for non-patched vt100 terminals
+    //#define SUPPRESS_VARIOMETER_UP   // 如果不期望有用于向上移动的信号
+    //#define SUPPRESS_VARIOMETER_DOWN // 如果不期望有用于向下移动的信号
+    //#define VARIOMETER_SINGLE_TONE   // 仅使用一个声调（响铃）；对未打补丁的vt100终端是必需的
 
   /********************************************************************/
-  /****                     飞控命名                              ****/
+  /****                     板子命名                               ****/
   /********************************************************************/
 
     /*
-     * this name is displayed together with the MultiWii 版本号
-     * upon powerup on the LCD.
-     * If you are without a DISPLAYD 那么你可以开启LCD_TTY
-     * 并使用arduino IDE的串口监控器来查看信息。
+     * 这个名字会与MultiWii版本号共同显示
+     * 在打开电源时显示在LCD上。
+     * 如果你没有显示设备那么你可以启用LCD_TTY并
+     * 使用arduino IDE的串口监控器来查看此信息。
      *
      * 你必须保持此处文本的格式！
      * 它必须总共有16个字母，
@@ -898,7 +898,7 @@
     #define BOARD_NAME "MultiWii   V-.--"
     //                  123456789.123456
 
-  /*************      支持 多个 配置 profiles in EEPROM     ************/
+  /*************      在EEPROM中支持多个配置参数文件      ************/
     //#define MULTIPLE_CONFIGURATION_PROFILES
 
 /*************************************************************************************************/
@@ -907,7 +907,7 @@
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
-  /************ 实验性：强制一个稳固的（高）周期时间       **********/
+  /************ 实验性的：强制一个稳固（高）的周期时间       **********/
     /* 当此项激活，在GUI中显示的周期时间将会不正确。
      * 可通过LCD配置菜单调整。
      * 值为0关闭此项特性。
@@ -915,14 +915,14 @@
     //#define CYCLETIME_FIXATED 9000 // (*)
 
   /**************************************************************************************/
-  /********   特殊的电调（ESC）使用扩展范围 [0-2000] 微秒  ********************/
+  /********          使用扩展范围[0-2000]微秒的特殊电调              ********************/
   /**************************************************************************************/
     //#define EXT_MOTOR_RANGE
 
   /**************************************************************************************/
   /***********************     电机，舵机和其他的预置             ***********************/
   /**************************************************************************************/
-    /* 当油门命令在低位时电机将不会spin
+    /* 当油门命令在低位时电机将不会旋转
        这是立即停止电机的替代方案 */
     #define MOTOR_STOP
 
@@ -933,92 +933,92 @@
     /* 默认50Hz舵机刷新率 */
     #define SERVO_RFR_50HZ
 
-    /* up to 160Hz 舵机刷新率 .. 用于多数模拟舵机 */
+    /* 升至160Hz舵机刷新率 .. 用于多数模拟舵机 */
     //#define SERVO_RFR_160HZ
 
-    /* up to 300Hz 刷新率 it is as fast as possible （100-300Hz 取决于使用的舵机和舵机状态）。
+    /* 升至300Hz刷新率，它越快越好（100-300Hz取决于使用的舵机和舵机状态）。
        用于数字舵机
        不要用于模拟舵机！它们可能遭到破坏。（一些可以使用，但请非常小心） */
     //#define SERVO_RFR_300HZ
     
-  /***********************             HW PWM 舵机             ***********************/ 
-    /* HW PWM 舵机输出 for Arduino Mega.. moves:
+  /***********************             硬件PWM舵机              ***********************/ 
+    /* 硬件PWM舵机输出用于Arduino Mega..移动至：
       Pitch   = pin 44
       Roll    = pin 45
       CamTrig = pin 46
-      SERVO4  = pin 11 (assigned to PPM or SPECTRUM CH9 on copter configuration)
-      SERVO5  = pin 12 (assigned to PPM or SPECTRUM CH10 on copter configuration)
-      this option disable other software PWM's for servos - only five hardware controlled servos avaliable
+      SERVO4  = pin 11 (在配置为飞行器时指定给PPM或SPECTRUM通道9)
+      SERVO5  = pin 12 (在配置为飞行器时指定给PPM或SPECTRUM通道10)
+      此选项禁用其他用于舵机的软件PWM - 仅有五个硬件控制舵机可用
       */ 
     //#define MEGA_HW_PWM_SERVOS
 
   /********************************************************************/
-  /****           Serial command handling - MSP and other          ****/
+  /****           串行命令处理 - MSP或其他命令                     ****/
   /********************************************************************/
 
-    /* to reduce memory footprint, it is possible to suppress handling of serial commands.
-     * This does _not_ affect handling of RXserial, Spektrum or GPS. Those will not be affected and still work the same.
-     * Enable either one or both of the following options  */
+    /* 如需减少储存空间需求，可以通过禁用串口命令处理来实现。
+     * 它_不会_对RXserial，Spektrum，GPS的处理产生影响。这些不会受到影响，仍可以照常工作。
+     * 启用下列选项中其中一项或两项  */
 
-    /* Remove handling of all commands of the New MultiWii Serial Protocol.
-     * This will disable use of the GUI, winGUI, android apps and any other program that makes use of the MSP.
-     * You must find another way (like LCD_CONF) to tune the parameters or live with the defaults.
-     * If you run a LCD/OLED via i2c or serial/Bluetooth, this is safe to use */
-    //#define SUPPRESS_ALL_SERIAL_MSP // saves approx 2700 bytes
+    /* 移除所有新MultiWii串行协议命令的处理。
+     * 这将会禁用GUI，winGUI，android应用以及其他所有使用MSP的程序。
+     * 你必须找到其他调试参数的方法（如LCD_CONF）或保持默认。
+     * 如果你是通过i2c或串口/蓝牙使用LCD/OLED，可以放心使用 */
+    //#define SUPPRESS_ALL_SERIAL_MSP // 节省约2700字节
 
-    /* Remove handling of other serial commands.
-     * This includes navigating via serial the lcd.configuration menu, lcd.telemetry and permanent.log .
-     * Navigating via stick inputs on tx is not affected and will work the same.  */
-    //#define SUPPRESS_OTHER_SERIAL_COMMANDS // saves  approx 0 to 100 bytes, depending on features enabled
+    /* 移除其他串行命令处理。
+     * 包含通过串口操作lcd.配置菜单，lcd.遥测与永久.日志。
+     * 通过在发射机上摇杆输入进行操作不会受到影响，操作起来是一样的。  */
+    //#define SUPPRESS_OTHER_SERIAL_COMMANDS // 节省约0至100字节，取决于启用的特性
 
   /********************************************************************/
   /****           诊断                                             ****/
   /********************************************************************/
 
-    /* to log values like max loop time and others to come
-       logging values are visible via LCD config
-       set to 1, enable 'R' option to reset values, max current, max altitude
-       set to 2, adds min/max cycleTimes
-       set to 3, adds additional powerconsumption on a per motor basis (this uses the big array and is a memory hog, if POWERMETER <> PM_SOFT) */
+    /* 记录像最大周期时间与其他可能的值
+       记录值可通过LCD配置看到
+       设为1，启用'R'选项来重置值，最大电流，最大高度
+       设为2，添加最大/最小周期时间
+       设为3，以每个电机为单位添加额外的功耗（它使用一个很大的数组并且很吃储存，如果POWERMETER <> PM_SOFT） */
     //#define LOG_VALUES 1
 
-    /* Permanent logging to eeprom - survives (most) upgrades and parameter resets.
-     * used to track number of flights etc. over lifetime of controller board.
-     * Writes to end of eeprom - should not conflict with stored parameters yet.
-     * Logged values: accumulated lifetime, #powercycle/reset/initialize events, #arm events, #disarm events, last armedTime,
-     *                #failsafe@disarm, #i2c_errs@disarm
-     * To activate set to size of eeprom for your mcu: promini 328p: 1023 ; 2560: 4095.
-     * Enable one or more options to show the log
+    /* 永久记录至eeprom - 可在（多数）升级与参数重置中保留下来。
+     * 常用于追踪控制板生命周期中的飞行次数等。
+     * 写入至eeprom末端 - 不应与已储存的参数冲突。
+     * 记录的值：累积的生存时间，#重启/重置/初始化事件，#解锁事件，#锁定事件，最后解锁时间，
+     *                #失控保护@锁定，#i2c_errs@锁定
+     * 设置你的mcu的eeprom的尺寸以激活：promini 328p：1023；2560：4095。
+     * 启用一项或更多选项以显示记录
      */
     //#define LOG_PERMANENT 1023
-    //#define LOG_PERMANENT_SHOW_AT_STARTUP // enable to display log at startup
-    //#define LOG_PERMANENT_SHOW_AT_L // enable to display log when receiving 'L'
-    //#define LOG_PERMANENT_SHOW_AFTER_CONFIG // enable to display log after exiting LCD config menu
-    //#define LOG_PERMANENT_SERVICE_LIFETIME 36000 // in seconds; service alert at startup after 10 hours of armed time
+    //#define LOG_PERMANENT_SHOW_AT_STARTUP // 启用以在启动时显示记录
+    //#define LOG_PERMANENT_SHOW_AT_L // 启用以在接收到'L'时显示记录
+    //#define LOG_PERMANENT_SHOW_AFTER_CONFIG // 启用以在退出LCD配置菜单之后显示记录
+    //#define LOG_PERMANENT_SERVICE_LIFETIME 36000 // 以秒为单位；在10小时的解锁时间之后，在启动时响起服务警告
 
     /* 添加调试代码
        不需要并且也不推荐在平常运行时开启
-       将会额外添加代码，可能会使主循环变慢或者使飞行器不可飞行 */
+       将会额外添加代码，可能会使主循环变慢或使飞行器不可飞行 */
     //#define DEBUG
 
-    /* 使用此项触发LCD配置 without a TX - 仅用于调试 - 不要在此项激活的情况下飞行 */
+    /* 使用此项在没有发射机时触发LCD配置 - 仅用于调试 - 不要在此项激活的情况下飞行 */
     //#define LCD_CONF_DEBUG
 
-    /* 使用此项触发遥测在没有TX - 仅用于调试 - 不要在此项激活的情况下飞行 */
-    //#define LCD_TELEMETRY_DEBUG    //This form rolls between all screens, LCD_TELEMETRY_AUTO must also be defined.
-    //#define LCD_TELEMETRY_DEBUG 6  //This form stays on the screen specified.
+    /* 使用此项在没有发射机时触发遥测 - 仅用于调试 - 不要在此项激活的情况下飞行 */
+    //#define LCD_TELEMETRY_DEBUG    //该形式在所有的屏幕间轮换，LCD_TELEMETRY_AUTO必须同时被定义。
+    //#define LCD_TELEMETRY_DEBUG 6  //该形式停在特定的屏幕上。
 
     /* 启用从飞行器到GUI的字符串传送 */
     //#define DEBUGMSG
 
 
   /********************************************************************/
-  /****           电调（ESCs）校准                                 ****/
+  /****           电调校准                                         ****/
   /********************************************************************/
 
-    /* 同时校准所有连接到MWii的电调（ESCs）（可以避免来回连接每一个电调（ESC））
+    /* 同时校准所有连接到MWii的电调（可以避免来回连接每一个电调）
        警告：这将产生一个特别版本的MultiWii代码
-       这个特殊的版本是不可以用来飞行的。它只可以用来校准电调（ESCs）
+       这个特殊的版本是不可以用来飞行的。它只可以用来校准电调
        使用方法详见 http://code.google.com/p/multiwii/wiki/ESCsCalibration */
     #define ESC_CALIB_LOW  MINCOMMAND
     #define ESC_CALIB_HIGH 2000
